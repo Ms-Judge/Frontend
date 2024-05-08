@@ -26,21 +26,21 @@ const Header = () => {
         <Logo />
       </Link>
       <Nav>
-        <NavLinkWithIcon to="/hold" icon={Hold}>
+        <NavLinkWithIcon to="/OpenContest" icon={Hold}>
           대회 대최
         </NavLinkWithIcon>
-        <NavLinkWithIcon to="/participation" icon={Participation}>
+        <NavLinkWithIcon to="/ContestList" icon={Participation}>
           대회 참여
         </NavLinkWithIcon>
-        <NavLinkWithIcon to="/question" icon={Question}>
+        <NavLinkWithIcon to="/Question" icon={Question}>
           질문 게시판{" "}
         </NavLinkWithIcon>
       </Nav>
       <Nav>
-        <NavLinkWithIcon to="/login" icon={LogoutLogin}>
+        <NavLinkWithIcon to="/Login" icon={LogoutLogin}>
           로그인
         </NavLinkWithIcon>
-        <NavLinkWithIcon to="/mypage" icon={MyPage}>
+        <NavLinkWithIcon to="/SignUp" icon={MyPage}>
           마이페이지
         </NavLinkWithIcon>
       </Nav>

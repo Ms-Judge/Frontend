@@ -1,11 +1,11 @@
-// 대회 개최 페이지
+// 질문 개시판 페이지
 import React from 'react'
 import Header from '../../components/Header'
 
-const OpenContest = () => {
+const Question = () => {
   return (
     <div><Header /></div>
   )
 }
 
-export default OpenContest
+export default Question
