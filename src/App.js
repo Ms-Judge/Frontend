@@ -1,11 +1,11 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './pages/Main';
-import ContestList from './pages/contest/ContestList'
-import OpenContest  from './pages/contest/OpenContest'
+import ContestList from './pages/contest/contestList'
+import OpenContest  from './pages/contest/openContest'
 import Question from './pages/question/Question';
-import Login from './pages/auth/Login';
-import SignUp from './pages/auth/SignUp';
+import Login from './pages/auth/login';
+import SignUp from './pages/auth/signUp';
 
 
 function App() {

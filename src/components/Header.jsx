@@ -33,14 +33,14 @@ const Header = () => {
           대회 참여
         </NavLinkWithIcon>
         <NavLinkWithIcon to="/Question" icon={Question}>
-          질문 게시판{" "}
+          질문 게시판
         </NavLinkWithIcon>
       </Nav>
       <Nav>
         <NavLinkWithIcon to="/Login" icon={LogoutLogin}>
           로그인
         </NavLinkWithIcon>
-        <NavLinkWithIcon to="/SignUp" icon={MyPage}>
+        <NavLinkWithIcon to="/Mypage" icon={MyPage}>
           마이페이지
         </NavLinkWithIcon>
       </Nav>
