@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Header from "../../components/Header";
-// 파일명 문제 해결용
 
 const Login = () => {
   const [email, setEmail] = useState("");

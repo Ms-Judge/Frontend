@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Header from "../../components/Header.jsx";
 import styled from "@emotion/styled";
-// 파일명 문제 해결용
 
 const MyPage = () => {
   const [isEditMode, setIsEditMode] = useState(false);

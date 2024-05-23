@@ -7,6 +7,6 @@ const ContestList = () => {
     <div><Header /></div>
   )
 }
-// 파일명 문제 해결용
+
 
 export default ContestList
