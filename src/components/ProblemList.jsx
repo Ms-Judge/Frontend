@@ -37,7 +37,7 @@ const StyledTable = styled(Table)`
 
 
 // API 명세서 보고 State로 값 만들기
-const List = () => {
+const ProblemList = () => {
   const [active, setActive] = useState(1);
 
   let items = [];
@@ -48,10 +48,10 @@ const List = () => {
       </Pagination.Item>,
     );
   }
-
+// 명세서 보고 State 만들기
   return (
     <ListWrapper>
-      <TitleName>대회 목록</TitleName>
+      <TitleName>대마고 알고리즘 경진대회</TitleName>
       <StyledTable bordered hover>
         <thead>
           <tr>
@@ -119,7 +119,7 @@ const List = () => {
   );
 }
 
-export default List;
+export default ProblemList;
 
 const TitleName = styled.h1`
   text-align: left;
