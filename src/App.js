@@ -7,6 +7,7 @@ import OpenContest  from './pages/contest/OpenContest'
 import Question from './pages/question/Question';
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
+import MyPage from './pages/user/MyPage';
 
 
 
