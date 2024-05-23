@@ -8,22 +8,26 @@ import Question from './pages/question/Question';
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
 import MyPage from './pages/user/MyPage';
+import GlobalStyles from './styles/GlobalStyles';
 
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/OpenContest" element={<OpenContest />} />
-        <Route path="/ContestList" element={<ContestList />} />
-        <Route path="/Question" element={<Question />} />
-        <Route path="/Mypage" element={<MyPage />} />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <GlobalStyles />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Main />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/SignUp" element={<SignUp />} />
+          <Route path="/OpenContest" element={<OpenContest />} />
+          <Route path="/ContestList" element={<ContestList />} />
+          <Route path="/Question" element={<Question />} />
+          <Route path="/Mypage" element={<MyPage />} />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

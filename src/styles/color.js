@@ -1,0 +1,16 @@
+export const colors = {
+  white: "var(--white)",
+  black: "var(--black)",
+  red: "var(--red)",
+  green: "var(--green)",
+  main50: "var(--main50)",
+  main100: "var(--main100)",
+  main200: "var(--main200)",
+  main300: "var(--main300)",
+  main400: "var(--main400)",
+  main500: "var(--main500)",
+  main600: "var(--main600)",
+  main700: "var(--main700)",
+  main800: "var(--main800)",
+  main900: "var(--main900)",
+}
