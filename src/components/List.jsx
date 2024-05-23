@@ -16,7 +16,7 @@ const StyledTable = styled(Table)`
       tr {
         th {
           background-color: #B8FADD; // 헤더 배경색 변경
-          color: black; // 헤더 글자색 변경
+          color: black ; // 헤더 글자색 변경
         }
       }
     }
@@ -25,10 +25,10 @@ const StyledTable = styled(Table)`
     tbody {
       tr {
         &:hover {
-          background-color: #B8FADD; // 행 호버 시 배경색 변경
+          background-color: #43E5A0; // 행 호버 시 배경색 변경
         }
         td {
-          
+          color: #0FA968;
         }
       }
     }
@@ -140,7 +140,7 @@ const StyledPagination = styled(Pagination)`
     border-color: #B8FADD;
   }
   .page-link {
-    color: black;
+    color: #0FA968;
   }
   .page-link:hover {
     color: #B8FADD;

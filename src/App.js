@@ -9,13 +9,14 @@ import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
 import MyPage from './pages/user/MyPage';
 import GlobalStyles from './styles/GlobalStyles';
+import { Global } from '@emotion/react';
 
 
 
 function App() {
   return (
     <>
-      <GlobalStyles />
+      <Global styles={GlobalStyles} />    
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
