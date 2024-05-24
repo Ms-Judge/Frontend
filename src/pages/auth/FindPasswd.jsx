@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Header from "../../components/Header";
 
-const Login = () => {
+const FindPasswd = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false); // 로그인 정보 기억 체크박스 상태
@@ -86,7 +86,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default FindPasswd;
 
 const OptionsContainer = styled.div`
   display: flex;

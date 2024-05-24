@@ -35,6 +35,9 @@ const Header = () => {
         <NavLinkWithIcon to="/Question" icon={Question}>
           질문 게시판
         </NavLinkWithIcon>
+        <NavLinkWithIcon to="/ProblemUpload" icon={Question}>
+          문제 업로드
+        </NavLinkWithIcon>
       </Nav>
       <Nav>
         <NavLinkWithIcon to="/Login" icon={LogoutLogin}>
