@@ -3,7 +3,8 @@ import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { postList } from '../Data';
+import { postContestList } from '../ContestData';
+
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
 const StyledTable = styled(Table)`
@@ -39,7 +40,7 @@ const StyledTable = styled(Table)`
 
 
 // API 명세서 보고 State로 값 만들기
-const List = () => {
+const ProblemList = () => {
   const [active, setActive] = useState(1);
 
   let items = [];
@@ -54,20 +55,18 @@ const List = () => {
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    setDataList(postList);
+    setDataList(postContestList);
   }, [])
 
   return (
     <ListWrapper>
-      <TitleName>대회 목록</TitleName>
+      <TitleName></TitleName>
       <StyledTable bordered hover>
         <thead>
           <tr>
-            <th>대회이름</th>
-            <th>우승</th>
-            <th>시작</th>
-            <th>종료</th>
-            <th>상태</th>
+            <th>번호</th>
+            <th>문제</th>
+            <th>정보</th>
           </tr>
         </thead>
         {
@@ -76,12 +75,11 @@ const List = () => {
               <tbody>
                 <tr>
                   <td>
-                    <Link to={`/DetailedContest`}>{ item.title }</Link>
+                    {item.no}
                   </td>
-                  <td>{item.winner}</td>
-                  <td>{item.createDate}</td>
-                  <td>{item.endDate}</td>
-                  <td>{item.createDate}</td>
+                  <td><Link to={`/ProblemInfo`}>{ item.title }</Link></td>
+                  <td>{item.state}</td>
+
                 </tr>
                 </tbody>
                 )
@@ -95,7 +93,7 @@ const List = () => {
   );
 }
 
-export default List;
+export default ProblemList;
 
 const TitleName = styled.h1`
   text-align: left;

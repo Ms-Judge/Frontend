@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Pagination } from 'react-bootstrap';
+import { postQuestionList } from '../QuestionData';
 import { Link } from 'react-router-dom';
-import { postList } from '../Data';
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
 const StyledTable = styled(Table)`
@@ -38,8 +38,9 @@ const StyledTable = styled(Table)`
 `;
 
 
+
 // API 명세서 보고 State로 값 만들기
-const List = () => {
+const QuestionList = () => {
   const [active, setActive] = useState(1);
 
   let items = [];
@@ -50,24 +51,24 @@ const List = () => {
       </Pagination.Item>,
     );
   }
-  // 데이터 state
-  const [dataList, setDataList] = useState([]);
 
-  useEffect(() => {
-    setDataList(postList);
-  }, [])
+    // 데이터 state
+    const [dataList, setDataList] = useState([]);
 
+    useEffect(() => {
+      setDataList(postQuestionList);
+    }, [])
+
+// 명세서 보고 State 만들기
   return (
     <ListWrapper>
-      <TitleName>대회 목록</TitleName>
+      <TitleName>질문 목록</TitleName>
       <StyledTable bordered hover>
-        <thead>
+      <thead>
           <tr>
-            <th>대회이름</th>
-            <th>우승</th>
-            <th>시작</th>
-            <th>종료</th>
-            <th>상태</th>
+            <th>제목</th>
+            <th>아이디</th>
+            <th>게시일</th>
           </tr>
         </thead>
         {
@@ -76,26 +77,23 @@ const List = () => {
               <tbody>
                 <tr>
                   <td>
-                    <Link to={`/DetailedContest`}>{ item.title }</Link>
+                  <Link to={`/Question`}>{ item.title }</Link>
                   </td>
-                  <td>{item.winner}</td>
+                  <td>{item.id}</td>
                   <td>{item.createDate}</td>
-                  <td>{item.endDate}</td>
-                  <td>{item.createDate}</td>
+
                 </tr>
                 </tbody>
                 )
           }) : ''
         }       
       </StyledTable>
-
-
       <StyledPagination>{items}</StyledPagination>
     </ListWrapper>
   );
 }
 
-export default List;
+export default QuestionList;
 
 const TitleName = styled.h1`
   text-align: left;
@@ -116,7 +114,7 @@ const StyledPagination = styled(Pagination)`
     border-color: #B8FADD;
   }
   .page-link {
-    color: #0FA968;
+    color: black;
   }
   .page-link:hover {
     color: #B8FADD;
