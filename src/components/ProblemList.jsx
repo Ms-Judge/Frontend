@@ -60,7 +60,7 @@ const ProblemList = () => {
 
   return (
     <ListWrapper>
-      <TitleName></TitleName>
+      <TitleName>대마고 알고리즘 경진대회(더미)</TitleName>
       <StyledTable bordered hover>
         <thead>
           <tr>
