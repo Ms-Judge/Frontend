@@ -1,15 +1,13 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Main from './pages/Main';
-import ContestList from './pages/contest/ContestList'
-import OpenContest  from './pages/contest/OpenContest'
-import Question from './pages/question/Question';
-import Login from './pages/auth/Login';
-import SignUp from './pages/auth/SignUp';
-import MyPage from './pages/user/MyPage';
-
-
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Main from "./pages/Main";
+import ContestList from "./pages/contest/ContestList";
+import OpenContest from "./pages/contest/OpenContest";
+import Question from "./pages/question/Question";
+import Login from "./pages/auth/Login";
+import SignUp from "./pages/auth/SignUp";
+import MyPage from "./pages/user/MyPage";
 
 function App() {
   return (
@@ -26,6 +24,5 @@ function App() {
     </BrowserRouter>
   );
 }
-
 
 export default App;
