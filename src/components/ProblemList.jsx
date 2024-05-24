@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Pagination } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { postContestList } from '../ContestData';
+
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
 const StyledTable = styled(Table)`
@@ -36,7 +39,6 @@ const StyledTable = styled(Table)`
 `;
 
 
-
 // API 명세서 보고 State로 값 만들기
 const ProblemList = () => {
   const [active, setActive] = useState(1);
@@ -49,72 +51,43 @@ const ProblemList = () => {
       </Pagination.Item>,
     );
   }
-// 명세서 보고 State 만들기
+  // 데이터 state
+  const [dataList, setDataList] = useState([]);
+
+  useEffect(() => {
+    setDataList(postContestList);
+  }, [])
+
   return (
     <ListWrapper>
-      <TitleName>대마고 알고리즘 경진대회</TitleName>
+      <TitleName></TitleName>
       <StyledTable bordered hover>
         <thead>
           <tr>
-            <th>대회이름</th>
-            <th>우승</th>
-            <th>시작</th>
-            <th>종료</th>
-            <th>상태</th>
+            <th>번호</th>
+            <th>문제</th>
+            <th>정보</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-        </tbody>
+        {
+          dataList ? dataList.map((item, index) => {
+            return (
+              <tbody>
+                <tr>
+                  <td>
+                    {item.no}
+                  </td>
+                  <td><Link to={`/ProblemInfo`}>{ item.title }</Link></td>
+                  <td>{item.state}</td>
+
+                </tr>
+                </tbody>
+                )
+          }) : ''
+        }       
       </StyledTable>
+
+
       <StyledPagination>{items}</StyledPagination>
     </ListWrapper>
   );
@@ -141,7 +114,7 @@ const StyledPagination = styled(Pagination)`
     border-color: #B8FADD;
   }
   .page-link {
-    color: black;
+    color: #0FA968;
   }
   .page-link:hover {
     color: #B8FADD;

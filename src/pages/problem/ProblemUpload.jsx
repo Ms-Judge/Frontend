@@ -1,8 +1,12 @@
 import React from 'react'
+import Header from '../../components/Header'
 
 const ProblemUpload = () => {
   return (
-    <div>문제 업로드 페이지 만들어야 함.</div>
+    <>
+      <Header />
+      문제 업로드 페이지입니다.
+    </>
   )
 }
 

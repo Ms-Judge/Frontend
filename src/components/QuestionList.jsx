@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Pagination } from 'react-bootstrap';
+import { postQuestionList } from '../QuestionData';
+import { Link } from 'react-router-dom';
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
 const StyledTable = styled(Table)`
@@ -49,54 +51,42 @@ const QuestionList = () => {
       </Pagination.Item>,
     );
   }
+
+    // 데이터 state
+    const [dataList, setDataList] = useState([]);
+
+    useEffect(() => {
+      setDataList(postQuestionList);
+    }, [])
+
 // 명세서 보고 State 만들기
   return (
     <ListWrapper>
       <TitleName>질문 목록</TitleName>
       <StyledTable bordered hover>
-        <thead>
+      <thead>
           <tr>
             <th>제목</th>
             <th>아이디</th>
             <th>게시일</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>아니 이거 어케 풀어요?</td>
-            <td>hong</td>
-            <td>2024년 5월 22일</td>
-          </tr>
-          <tr>
-            <td>아니 이거 어케 풀어요?</td>
-            <td>hong</td>
-            <td>2024년 5월 22일</td>
-          </tr><tr>
-            <td>아니 이거 어케 풀어요?</td>
-            <td>hong</td>
-            <td>2024년 5월 22일</td>
-          </tr>
-          <tr>
-            <td>아니 이거 어케 풀어요?</td>
-            <td>hong</td>
-            <td>2024년 5월 22일</td>
-          </tr>
-          <tr>
-            <td>아니 이거 어케 풀어요?</td>
-            <td>hong</td>
-            <td>2024년 5월 22일</td>
-          </tr>
-          <tr>
-            <td>아니 이거 어케 풀어요?</td>
-            <td>hong</td>
-            <td>2024년 5월 22일</td>
-          </tr>
-          <tr>
-            <td>아니 이거 어케 풀어요?</td>
-            <td>hong</td>
-            <td>2024년 5월 22일</td>
-          </tr>
-        </tbody>
+        {
+          dataList ? dataList.map((item, index) => {
+            return (
+              <tbody>
+                <tr>
+                  <td>
+                  <Link to={`/Question`}>{ item.title }</Link>
+                  </td>
+                  <td>{item.id}</td>
+                  <td>{item.createDate}</td>
+
+                </tr>
+                </tbody>
+                )
+          }) : ''
+        }       
       </StyledTable>
       <StyledPagination>{items}</StyledPagination>
     </ListWrapper>

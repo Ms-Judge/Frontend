@@ -8,10 +8,12 @@ import Question from './pages/question/Question';
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
 import MyPage from './pages/user/MyPage';
+import ProblemInfo from './pages/problem/ProblemInfo'
 import GlobalStyles from './styles/GlobalStyles';
 import { Global } from '@emotion/react';
 import ProblemUpload from './pages/problem/ProblemUpload';
 import FindPasswd from './pages/auth/FindPasswd';
+import DetailedContest from './pages/contest/DetailedContest';
 
 
 
@@ -30,6 +32,8 @@ function App() {
           <Route path="/Mypage" element={<MyPage />} />
           <Route path="/ProblemUpload" element={<ProblemUpload />} />
           <Route path="/FindPasswd" element={<FindPasswd />} />
+          <Route path="/DetailedContest" element={<DetailedContest/>} />
+          <Route path="/ProblemInfo" element={<ProblemInfo />} />
         </Routes>
       </BrowserRouter>
     </>

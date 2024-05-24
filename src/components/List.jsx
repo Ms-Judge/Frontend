@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Pagination } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { postList } from '../Data';
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
 const StyledTable = styled(Table)`
@@ -48,6 +50,12 @@ const List = () => {
       </Pagination.Item>,
     );
   }
+  // 데이터 state
+  const [dataList, setDataList] = useState([]);
+
+  useEffect(() => {
+    setDataList(postList);
+  }, [])
 
   return (
     <ListWrapper>
@@ -62,58 +70,26 @@ const List = () => {
             <th>상태</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-          <tr>
-            <td>대마고 알고리즘 경진대회</td>
-            <td>홍길동</td>
-            <td>2024년 5월 22일</td>
-            <td>2024년 5월 31일</td>
-            <td>진행중</td>
-          </tr>
-        </tbody>
+        {
+          dataList ? dataList.map((item, index) => {
+            return (
+              <tbody>
+                <tr>
+                  <td>
+                    <Link to={`/DetailedContest`}>{ item.title }</Link>
+                  </td>
+                  <td>{item.winner}</td>
+                  <td>{item.createDate}</td>
+                  <td>{item.endDate}</td>
+                  <td>{item.createDate}</td>
+                </tr>
+                </tbody>
+                )
+          }) : ''
+        }       
       </StyledTable>
+
+
       <StyledPagination>{items}</StyledPagination>
     </ListWrapper>
   );

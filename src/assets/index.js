@@ -1,4 +1,4 @@
-export { default as MSJLogo } from "./img/msjLogo.png";
+export { default as MSJLogo } from "./img/MSJLogo.png";
 export { default as LogoutLogin } from "./img/LoginLogout.png";
 export { default as Hold } from "./img/Hold.png";
 export { default as MyPage } from "./img/MyPage.png";
