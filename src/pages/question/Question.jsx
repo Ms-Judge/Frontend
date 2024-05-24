@@ -1,13 +1,13 @@
 // 질문 개시판 페이지
 import React from 'react'
 import Header from '../../components/Header'
-import List from '../../components/List'
+import QuestionList from '../../components/QuestionList'
 
 const Question = () => {
   return (
     <div>
       <Header />
-      <List />
+      <QuestionList />
     </div>
   )
 }
