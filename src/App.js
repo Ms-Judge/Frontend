@@ -1,3 +1,4 @@
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -14,7 +15,6 @@ import { Global } from '@emotion/react';
 import ProblemUpload from './pages/problem/ProblemUpload';
 import FindPasswd from './pages/auth/FindPasswd';
 import DetailedContest from './pages/contest/DetailedContest';
-
 
 
 function App() {
@@ -39,6 +39,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;
