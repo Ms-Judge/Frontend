@@ -15,7 +15,7 @@ const FindPasswd = () => {
   };
 
   const handleSignupClick = () => {
-    navigate("/signup");
+    navigate("/login");
   };
 
   const handleRememberMeChange = () => {
@@ -43,41 +43,12 @@ const FindPasswd = () => {
               placeholder="이메일을 입력해 주세요"
             />
           </InputGroup>
-          <InputGroup>
-            <Label htmlFor="password">비밀번호</Label>
-            <Input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              placeholder="비밀번호를 입력해 주세요"
-            />
-          </InputGroup>
-          <OptionsContainer>
-            <CheckboxContainer>
-              <InputCheckbox
-                type="checkbox"
-                id="rememberMe"
-                checked={rememberMe}
-                onChange={handleRememberMeChange}
-              />
-              <LabelCheckbox htmlFor="rememberMe">
-                로그인 정보 기억하기
-              </LabelCheckbox>
-            </CheckboxContainer>
-            <ForgotPasswordButton
-              type="button"
-              onClick={handleForgotPasswordClick}
-            >
-              비밀번호 찾기
-            </ForgotPasswordButton>
-          </OptionsContainer>
+
           <LoginButton type="submit">로그인</LoginButton>
           <SignupPromptContainer>
             <SignupPromptText>
-              계정이 없으신가요?
-              <SigupText onClick={handleSignupClick}>가입하기</SigupText>
+              비밀번호가 기억나셨나요?
+              <SigupText onClick={handleSignupClick}>로그인하기</SigupText>
             </SignupPromptText>
           </SignupPromptContainer>
         </SignupForm>
