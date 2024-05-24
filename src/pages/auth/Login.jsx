@@ -70,7 +70,7 @@ const Login = () => {
               type="button"
               onClick={handleForgotPasswordClick}
             >
-              비밀번호 찾기
+              비밀번호 변경하기
             </ForgotPasswordButton>
           </OptionsContainer>
           <LoginButton type="submit">로그인</LoginButton>

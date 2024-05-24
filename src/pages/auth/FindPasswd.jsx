@@ -5,25 +5,28 @@ import Header from "../../components/Header";
 
 const FindPasswd = () => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false); // 로그인 정보 기억 체크박스 상태
+  const [verificationCode, setVerificationCode] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
   const navigate = useNavigate();
+  const [passwd, setPasswd] = useState("");
+  const [isPasswdShown, setIsPasswdShown] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setIsPasswdShown(!isPasswdShown);
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("로그인 시도:", email, password);
+    if (isVerified) {
+      console.log("비밀번호 변경 시도");
+    } else {
+      console.log("이메일 인증 시도:", email);
+
+      setIsVerified(true);
+    }
   };
 
   const handleSignupClick = () => {
     navigate("/login");
-  };
-
-  const handleRememberMeChange = () => {
-    setRememberMe(!rememberMe);
-  };
-
-  const handleForgotPasswordClick = () => {
-    navigate("/FindPasswd");
   };
 
   return (
@@ -43,8 +46,37 @@ const FindPasswd = () => {
               placeholder="이메일을 입력해 주세요"
             />
           </InputGroup>
-
-          <LoginButton type="submit">비밀번호 찾기</LoginButton>
+          {isVerified && (
+            <InputGroup>
+              <Label htmlFor="verificationCode">인증 코드</Label>
+              <Input
+                type="text"
+                id="verificationCode"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+                required
+                placeholder="인증 코드를 입력해 주세요"
+              />
+            </InputGroup>
+          )}
+          <InputGroup>
+            <Label htmlFor="passwd">비밀번호</Label>
+            <Input
+              type={isPasswdShown ? "text" : "password"} // 상태에 따라 input type 변경
+              id="passwd"
+              value={passwd}
+              onChange={(e) => setPasswd(e.target.value)}
+              required
+              placeholder="새로운 비밀번호를 입력해 주세요."
+            />
+            <label>
+              <input type="checkbox" onChange={togglePasswordVisibility} />{" "}
+              자세히 보기
+            </label>
+          </InputGroup>
+          <LoginButton type="submit">
+            {isVerified ? "비밀번호 바꾸기" : "이메일 인증"}
+          </LoginButton>
           <SignupPromptContainer>
             <SignupPromptText>
               비밀번호가 기억나셨나요?
@@ -58,38 +90,6 @@ const FindPasswd = () => {
 };
 
 export default FindPasswd;
-
-const OptionsContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
-const CheckboxContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const InputCheckbox = styled.input`
-  margin-right: 10px;
-`;
-
-const LabelCheckbox = styled.label`
-  font-size: 14px;
-  color: #666;
-  cursor: pointer;
-`;
-const ForgotPasswordButton = styled.button`
-  background: none;
-  border: none;
-  color: #0fa968;
-  cursor: pointer;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 const SignupContainer = styled.div`
   display: flex;
