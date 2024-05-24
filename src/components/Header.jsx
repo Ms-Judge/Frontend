@@ -27,13 +27,16 @@ const Header = () => {
       </Link>
       <Nav>
         <NavLinkWithIcon to="/OpenContest" icon={Hold}>
-          대회 대최
+          대회 개최
         </NavLinkWithIcon>
         <NavLinkWithIcon to="/ContestList" icon={Participation}>
           대회 참여
         </NavLinkWithIcon>
         <NavLinkWithIcon to="/Question" icon={Question}>
           질문 게시판
+        </NavLinkWithIcon>
+        <NavLinkWithIcon to="/ProblemUpload" icon={Question}>
+          문제 업로드
         </NavLinkWithIcon>
       </Nav>
       <Nav>
