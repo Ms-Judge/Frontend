@@ -5,14 +5,14 @@ import Header from "../../components/Header";
 import styled from "@emotion/styled";
 
 const ProblemInfo = (
-  number,
+  {number,
   title,
   time_limit,
   memory_limit,
   content,
   input,
   output,
-  algorithm
+  algorithm}
 ) => {
   return (
     <_.Content>

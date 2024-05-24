@@ -1,6 +1,7 @@
 import React from "react";
 import * as _ from "./style";
 import styled from "@emotion/styled";
+import Header from "../../components/Header";
 
 const Result = () => {
   return (
