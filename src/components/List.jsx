@@ -76,7 +76,7 @@ const List = () => {
               <tbody>
                 <tr>
                   <td>
-                    <Link to={`/DetailedContest`}>{ item.title }</Link>
+                    <Link to={`/DetailedContest/${item.title}`}>{ item.title }</Link>
                   </td>
                   <td>{item.winner}</td>
                   <td>{item.createDate}</td>

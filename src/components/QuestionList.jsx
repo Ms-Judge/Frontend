@@ -77,7 +77,7 @@ const QuestionList = () => {
               <tbody>
                 <tr>
                   <td>
-                  <Link to={`/Question`}>{ item.title }</Link>
+                  <Link to={`/ResponseQuestion/${item.title}`}>{ item.title }</Link>
                   </td>
                   <td>{item.id}</td>
                   <td>{item.createDate}</td>

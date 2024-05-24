@@ -15,6 +15,7 @@ import { Global } from '@emotion/react';
 import ProblemUpload from './pages/problem/ProblemUpload';
 import FindPasswd from './pages/auth/FindPasswd';
 import DetailedContest from './pages/contest/DetailedContest';
+import ResponseQuestion from './pages/question/ResponseQuestion';
 
 
 function App() {
@@ -32,8 +33,10 @@ function App() {
           <Route path="/Mypage" element={<MyPage />} />
           <Route path="/ProblemUpload" element={<ProblemUpload />} />
           <Route path="/FindPasswd" element={<FindPasswd />} />
-          <Route path="/DetailedContest" element={<DetailedContest/>} />
-          <Route path="/ProblemInfo" element={<ProblemInfo />} />
+          <Route path="/DetailedContest/:title" element={<DetailedContest/>} />
+          <Route path="/ProblemInfo/:problems" element={<ProblemInfo />} />
+          <Route path="/ResponseQuestion/:title" element={<ResponseQuestion />} />
+
         </Routes>
       </BrowserRouter>
     </>

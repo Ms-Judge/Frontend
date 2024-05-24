@@ -60,6 +60,7 @@ const ProblemList = () => {
 
   return (
     <ListWrapper>
+      
       <TitleName>대마고 알고리즘 경진대회(더미)</TitleName>
       <StyledTable bordered hover>
         <thead>
@@ -75,9 +76,9 @@ const ProblemList = () => {
               <tbody>
                 <tr>
                   <td>
-                    {item.no}
+                    {item.problems}
                   </td>
-                  <td><Link to={`/ProblemInfo`}>{ item.title }</Link></td>
+                  <td><Link to={`/ProblemInfo/${item.problems}`}>{ item.title }</Link></td>
                   <td>{item.state}</td>
 
                 </tr>

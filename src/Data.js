@@ -3,48 +3,56 @@ const postList = [
     "no": 1,
     "title": "대마고 알고리즘 경진대회",
     "winner": "홍길동",
-    "createDate": "2020-10-25",
-    "endDate": "2020-10-26",
+    "start_time": "2020-10-25",
+    "end_time": "2020-10-26",
     "state": "종료"
   },
   {
     "no": 2,
-    "title": "대마고 알고리즘 경진대회",
+    "title": "대소고 알고리즘 경진대회",
     "winner": "홍길동",
-    "createDate": "2020-10-25",
-    "endDate": "2020-10-26",
+    "start_time": "2020-10-25",
+    "end_time": "2020-10-26",
     "state": "종료"
   },
   {
     "no": 3,
-    "title": "대마고 알고리즘 경진대회",
+    "title": "광마고 알고리즘 경진대회",
     "winner": "홍길동",
-    "createDate": "2020-10-25",
-    "endDate": "2020-10-26",
+    "start_time": "2020-10-25",
+    "end_time": "2020-10-26",
     "state": "종료"
   },
   {
     "no": 4,
-    "title": "대마고 알고리즘 경진대회",
+    "title": "부마고 알고리즘 경진대회",
     "winner": "홍길동",
-    "createDate": "2020-10-25",
-    "endDate": "2020-10-26",
+    "start_time": "2020-10-25",
+    "end_time": "2020-10-26",
     "state": "종료"
   },
   {
     "no": 5,
-    "title": "대마고 알고리즘 경진대회",
+    "title": "고려대 알고리즘 경진대회",
     "winner": "홍길동",
-    "createDate": "2020-10-25",
-    "endDate": "2020-10-26",
+    "start_time": "2020-10-25",
+    "end_time": "2020-10-26",
     "state": "종료"
   },
   {
     "no": 6,
-    "title": "대마고 알고리즘 경진대회",
+    "title": "KAIST 알고리즘 경진대회",
     "winner": "홍길동",
-    "createDate": "2020-10-25",
-    "endDate": "2020-10-26",
+    "start_time": "2020-10-25",
+    "end_time": "2020-10-26",
+    "state": "종료"
+  },
+  {
+    "no": 7,
+    "title": "그냥 알고리즘 경진대회",
+    "winner": "홍길동",
+    "start_time": "2020-10-25",
+    "end_time": "2020-10-26",
     "state": "종료"
   },
 ];
