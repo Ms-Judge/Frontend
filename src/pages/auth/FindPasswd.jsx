@@ -31,7 +31,7 @@ const FindPasswd = () => {
       <Header />
       <SignupContainer>
         <SignupForm onSubmit={handleSubmit}>
-          <Title>로그인</Title>
+          <Title>비밀번호 찾기</Title>
           <InputGroup>
             <Label htmlFor="email">이메일</Label>
             <Input
@@ -44,7 +44,7 @@ const FindPasswd = () => {
             />
           </InputGroup>
 
-          <LoginButton type="submit">로그인</LoginButton>
+          <LoginButton type="submit">비밀번호 찾기</LoginButton>
           <SignupPromptContainer>
             <SignupPromptText>
               비밀번호가 기억나셨나요?
