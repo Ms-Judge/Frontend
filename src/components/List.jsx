@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Pagination } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { postList } from '../Data';
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
@@ -32,6 +32,9 @@ const StyledTable = styled(Table)`
         td {
           color: #0FA968;
         }
+        td:first-child {
+          font-weight: 600;
+        }
       }
     }
   }
@@ -41,6 +44,7 @@ const StyledTable = styled(Table)`
 // API 명세서 보고 State로 값 만들기
 const List = () => {
   const [active, setActive] = useState(1);
+  const navigate = useNavigate();
 
   let items = [];
   for (let number = 1; number <= 5; number++) {
@@ -56,6 +60,7 @@ const List = () => {
   useEffect(() => {
     setDataList(postList);
   }, [])
+
 
   return (
     <ListWrapper>
@@ -74,19 +79,17 @@ const List = () => {
           dataList ? dataList.map((item, index) => {
             return (
               <tbody>
-                <tr>
-                  <td>
-                    <Link to={`/DetailedContest/${item.title}`}>{ item.title }</Link>
-                  </td>
+                <tr key={index} onClick={() => navigate(`/DetailedContest/${item.title}`)}>
+                  <td>{item.title}</td>
                   <td>{item.winner}</td>
-                  <td>{item.createDate}</td>
-                  <td>{item.endDate}</td>
-                  <td>{item.createDate}</td>
+                  <td>{item.start_time}</td>
+                  <td>{item.end_time}</td>
+                  <td>{item.state}</td>
                 </tr>
-                </tbody>
-                )
+              </tbody>
+            )
           }) : ''
-        }       
+        }
       </StyledTable>
 
 
