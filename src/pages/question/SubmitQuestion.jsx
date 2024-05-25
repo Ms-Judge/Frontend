@@ -32,7 +32,7 @@ const SubmitQuestion = () => {
             <Editor
               height="350px"
               initialValue=" "
-              previewStyle="vertical" // or vertical
+              previewStyle="vertical" // or tab
               initialEditType="wysiwyg"
               hideModeSwitch= "true"
               language="ko-KR"
