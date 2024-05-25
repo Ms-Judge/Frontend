@@ -16,6 +16,7 @@ import ProblemUpload from './pages/problem/ProblemUpload';
 import FindPasswd from './pages/auth/FindPasswd';
 import DetailedContest from './pages/contest/DetailedContest';
 import ResponseQuestion from './pages/question/ResponseQuestion';
+import SubmitQuestion from './pages/question/SubmitQuestion';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/DetailedContest/:title" element={<DetailedContest/>} />
           <Route path="/ProblemInfo/:problems" element={<ProblemInfo />} />
           <Route path="/ResponseQuestion/:title" element={<ResponseQuestion />} />
+          <Route path="/SubmitQuestion" element={<SubmitQuestion/>} />
 
         </Routes>
       </BrowserRouter>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Pagination } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { postContestList } from '../ContestData';
 
 
@@ -42,6 +42,7 @@ const StyledTable = styled(Table)`
 // API 명세서 보고 State로 값 만들기
 const ProblemList = () => {
   const [active, setActive] = useState(1);
+  const navigate = useNavigate();
 
   let items = [];
   for (let number = 1; number <= 5; number++) {
@@ -74,13 +75,10 @@ const ProblemList = () => {
           dataList ? dataList.map((item, index) => {
             return (
               <tbody>
-                <tr>
-                  <td>
-                    {item.problems}
-                  </td>
-                  <td><Link to={`/ProblemInfo/${item.problems}`}>{ item.title }</Link></td>
+                <tr key={index} onClick={() => navigate(`/ProblemInfo/${item.problems}`)}>
+                  <td>{item.problems}</td>
+                  <td>{item.title}</td>
                   <td>{item.state}</td>
-
                 </tr>
                 </tbody>
                 )
