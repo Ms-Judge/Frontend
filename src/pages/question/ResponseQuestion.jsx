@@ -7,20 +7,25 @@ import styled from '@emotion/styled/macro';
 import '@toast-ui/editor/dist/i18n/ko-kr';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { postQuestionReqList } from '../../QuestionReqData';
 import { postQuestionResList } from '../../QuestionResData';
+
 
 
 const ResponseQuestion = () => {
   const navigate = useNavigate();
   const [dataList, setDataList] = useState([]);
+  const [resDataList, setResDataList] = useState([]);
 
   useEffect(() => {
-    setDataList(postQuestionResList);
+    setDataList(postQuestionReqList);
+    setResDataList(postQuestionResList);
   }, [])
 
 
   return (
     <div>
+      {/* header, 질문명 리스트 */}
       <Header />
       <ListWrapper>
         {
@@ -30,12 +35,28 @@ const ResponseQuestion = () => {
                 <TitleName>{item.title}</TitleName>
                 <QuestionText>
                   <p>{item.question_Description}</p>
-
                 </QuestionText>
               </>
             )
           }) : ''
         }
+
+        {
+          resDataList ? resDataList.map((item, index) => {
+            return (
+              <>
+                <ResponseTextWrapper>
+                   {/* item.title 이거 연동(쿼리 사용할때 수정해야 함. */}
+                  <ResponseTextTitle>{item.title}</ResponseTextTitle>
+                  <ResponseText>{item.answer_Description}</ResponseText>
+                </ResponseTextWrapper>
+              </>
+            )
+          }) : ''
+        }
+
+
+
 
         {/* 댓글쓰기 컴포넌트 */}
 
@@ -136,10 +157,27 @@ const CancelButton = styled(Button)`
 
 
 const QuestionText = styled.div`
-  border: 1px solid silver;
+  border: 3px solid silver;
   width: 60%;
   margin-bottom: 30px;
   min-height: 100px;
   max-height: 300px;
 `;
 
+const ResponseTextWrapper = styled.div`
+  border: 3px solid silver;
+  border-radius: 5px;
+  width: 60%;
+  margin-bottom: 20px;
+  height: 70px;
+  max-height: 100px;
+`;
+
+const ResponseTextTitle = styled.p`
+  font-weight: 500;
+  margin-left: 10px;
+  margin-bottom: 5px;
+`
+const ResponseText = styled.p`
+  margin: 0 0 0 10px;
+`
