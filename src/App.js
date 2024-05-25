@@ -1,4 +1,3 @@
-
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -17,6 +16,7 @@ import FindPasswd from './pages/auth/FindPasswd';
 import DetailedContest from './pages/contest/DetailedContest';
 import ResponseQuestion from './pages/question/ResponseQuestion';
 import SubmitQuestion from './pages/question/SubmitQuestion';
+import ProblemSolve from './pages/problem/ProblemSolve';
 
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
           <Route path="/ProblemInfo/:problems" element={<ProblemInfo />} />
           <Route path="/ResponseQuestion/:title" element={<ResponseQuestion />} />
           <Route path="/SubmitQuestion" element={<SubmitQuestion/>} />
-
+          <Route path="/ProblemSolve" element={<ProblemSolve/>} />
         </Routes>
       </BrowserRouter>
     </>

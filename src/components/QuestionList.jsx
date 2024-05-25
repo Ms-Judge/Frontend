@@ -3,7 +3,7 @@ import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Button, Pagination } from 'react-bootstrap';
 import { postQuestionList } from '../QuestionData';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
 const StyledTable = styled(Table)`
