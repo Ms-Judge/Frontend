@@ -17,7 +17,8 @@ import DetailedContest from './pages/contest/DetailedContest';
 import ResponseQuestion from './pages/question/ResponseQuestion';
 import SubmitQuestion from './pages/question/SubmitQuestion';
 import ProblemSolve from './pages/problem/ProblemSolve';
-
+import SolutionUpload from './pages/problem/SolutionUpload'
+import AnswerCaseForm from './pages/problem/AnswerCaseForm';
 
 function App() {
   return (
@@ -39,6 +40,8 @@ function App() {
           <Route path="/ResponseQuestion/:title" element={<ResponseQuestion />} />
           <Route path="/SubmitQuestion" element={<SubmitQuestion/>} />
           <Route path="/ProblemSolve" element={<ProblemSolve/>} />
+          <Route path="/SolutionUpload"element={<SolutionUpload/>} />
+          <Route path="/AnswerCaseForm" element={<AnswerCaseForm />} />
         </Routes>
       </BrowserRouter>
     </>

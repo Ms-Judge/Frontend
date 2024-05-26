@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
 import styled from "@emotion/styled";
 
-const ProblemSolve = () => {
+const SolutionUpload = () => {
   const [code, setCode] = useState("");
   const navigate = useNavigate();
 
@@ -31,13 +31,22 @@ const ProblemSolve = () => {
       <Container>
         <NavigationBar>
           <NavLeft>
-            <NavItem onClick={() => handleNavigation("/ProblemInfo")}>문제 보기</NavItem>
-            <NavItem onClick={() => handleNavigation("/ProblemSolve")}>코드 제출</NavItem>
-            <NavItem onClick={() => handleNavigation("/submission-status")}>제출 현황</NavItem>
+            <NavItem
+              onClick={() =>
+                handleNavigation(
+                  "/DetailedContest/대마고%20알고리즘%20경진대회"
+                )
+              }
+            >
+              대회문제 보기
+            </NavItem>
+            <NavItem onClick={() => handleNavigation("/SolutionUpload")}>
+              코드 등록
+            </NavItem>
+            <NavItem onClick={() => handleNavigation("/AnswerCaseForm")}>
+              정답 케이스 등록
+            </NavItem>
           </NavLeft>
-          <NavRight>
-            <NavItem onClick={() => handleNavigation("/Question")}>질문 게시판 가기</NavItem>
-          </NavRight>
         </NavigationBar>
         <ProblemInfo>
           <Number>{problemNumber}</Number>
@@ -50,11 +59,11 @@ const ProblemSolve = () => {
           <TextArea
             value={code}
             onChange={(e) => setCode(e.target.value)}
-            placeholder="여기에 코드를 입력하세요..."
+            placeholder="여기에 풀이를 입력하세요..."
           />
         </Form>
         <ButtonContainer>
-          <SubmitButton type="submit">제출하기</SubmitButton>
+          <SubmitButton type="submit">등록하기</SubmitButton>
           <BackButton type="button" onClick={handleBack}>
             뒤로가기
           </BackButton>
@@ -64,7 +73,7 @@ const ProblemSolve = () => {
   );
 };
 
-export default ProblemSolve;
+export default SolutionUpload;
 
 const Container = styled.div`
   display: flex;
@@ -84,10 +93,6 @@ const NavigationBar = styled.div`
 const NavLeft = styled.div`
   display: flex;
   gap: 20px;
-`;
-
-const NavRight = styled.div`
-  display: flex;
 `;
 
 const NavItem = styled.div`
@@ -124,7 +129,7 @@ const TextArea = styled.textarea`
   margin-bottom: 20px;
   ::placeholder {
     color: gray;
-    opacity: 1; 
+    opacity: 1;
   }
 `;
 

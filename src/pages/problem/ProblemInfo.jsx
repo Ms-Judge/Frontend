@@ -4,83 +4,86 @@ import { Link } from "react-router-dom";
 import Header from "../../components/Header";
 import styled from "@emotion/styled";
 
-const ProblemInfo = (
-  {number,
+const ProblemInfo = ({
+  number,
   title,
   time_limit,
   memory_limit,
   content,
   input,
   output,
-  algorithm}
-) => {
+  algorithm,
+}) => {
   return (
-    <_.Content>
+    <>
       <Header />
-      <_.MenuList>
-        <_.ShortBlockSet>
-          <_.ShortBlock>
-            <Link to="">문제 보기</Link>
-          </_.ShortBlock>
-          <_.ShortBlock>
-            <Link to="">코드 제출</Link>
-          </_.ShortBlock>
-          <_.ShortBlock>
-            <Link to="">제출 현황</Link>
-          </_.ShortBlock>
-        </_.ShortBlockSet>
-        <_.LongBlock>
-          <Link to="">질문 게시판 가기</Link>
-        </_.LongBlock>
-      </_.MenuList>
-      <ProblemInformation>
-        <ProblemData>
-          <ProblemNumber>0001{number}</ProblemNumber>
-          <ProblemTitle>A + B = ?{title}</ProblemTitle>
-        </ProblemData>
-        <ProblemLimit>
-          <ProblemTimeLimit>
-            <ProblemTimeLimitBlock>시간 제한</ProblemTimeLimitBlock>
-            <ProblemTimeLimitBlock>1초{time_limit}</ProblemTimeLimitBlock>
-          </ProblemTimeLimit>
-          <ProblemMemoryLimit>
-            <ProblemMemoryLimitBlock>메모리 제한</ProblemMemoryLimitBlock>
-            <ProblemMemoryLimitBlock>
-              128MB{memory_limit}
-            </ProblemMemoryLimitBlock>
-          </ProblemMemoryLimit>
-        </ProblemLimit>
-      </ProblemInformation>
-      <Problem>
-        <ProblemName>문제</ProblemName>
-        <ProblemContent>
-          ‘A + B’를 계산한 뒤, 위 값을 분석한 결과를 출력하시오.{content}
-        </ProblemContent>
-      </Problem>
-      <Putput>
-        <Input>
-          <InputName>입력</InputName>
-          <InputBlock>
-            <InputContent>1000 2000{input}</InputContent>
-          </InputBlock>
-        </Input>
-        <Output>
-          <OutputName>출력</OutputName>
-          <OutputBlock>
-            <OutputContent>
-              3000
-              <br />
-              A값과 B값의 합<br />
-              A값의 3배, B값의 1.5배{output}
-            </OutputContent>
-          </OutputBlock>
-        </Output>
-      </Putput>
-      <Algorithm>
-        <AlgorithmName>알고리즘</AlgorithmName>
-        <AlgorithmContent>수학, 구현{algorithm}</AlgorithmContent>
-      </Algorithm>
-    </_.Content>
+
+      <_.Content>
+        <_.MenuList>
+          <_.ShortBlockSet>
+            <_.ShortBlock>
+              <Link to="">문제 보기</Link>
+            </_.ShortBlock>
+            <_.ShortBlock>
+              <Link to="">코드 제출</Link>
+            </_.ShortBlock>
+            <_.ShortBlock>
+              <Link to="">제출 현황</Link>
+            </_.ShortBlock>
+          </_.ShortBlockSet>
+          <_.LongBlock>
+            <Link to="">질문 게시판 가기</Link>
+          </_.LongBlock>
+        </_.MenuList>
+        <ProblemInformation>
+          <ProblemData>
+            <ProblemNumber>0001{number}</ProblemNumber>
+            <ProblemTitle>A + B = ?{title}</ProblemTitle>
+          </ProblemData>
+          <ProblemLimit>
+            <ProblemTimeLimit>
+              <ProblemTimeLimitBlock>시간 제한</ProblemTimeLimitBlock>
+              <ProblemTimeLimitBlock>1초{time_limit}</ProblemTimeLimitBlock>
+            </ProblemTimeLimit>
+            <ProblemMemoryLimit>
+              <ProblemMemoryLimitBlock>메모리 제한</ProblemMemoryLimitBlock>
+              <ProblemMemoryLimitBlock>
+                128MB{memory_limit}
+              </ProblemMemoryLimitBlock>
+            </ProblemMemoryLimit>
+          </ProblemLimit>
+        </ProblemInformation>
+        <Problem>
+          <ProblemName>문제</ProblemName>
+          <ProblemContent>
+            ‘A + B’를 계산한 뒤, 위 값을 분석한 결과를 출력하시오.{content}
+          </ProblemContent>
+        </Problem>
+        <Putput>
+          <Input>
+            <InputName>입력</InputName>
+            <InputBlock>
+              <InputContent>1000 2000{input}</InputContent>
+            </InputBlock>
+          </Input>
+          <Output>
+            <OutputName>출력</OutputName>
+            <OutputBlock>
+              <OutputContent>
+                3000
+                <br />
+                A값과 B값의 합<br />
+                A값의 3배, B값의 1.5배{output}
+              </OutputContent>
+            </OutputBlock>
+          </Output>
+        </Putput>
+        <Algorithm>
+          <AlgorithmName>알고리즘</AlgorithmName>
+          <AlgorithmContent>수학, 구현{algorithm}</AlgorithmContent>
+        </Algorithm>
+      </_.Content>
+    </>
   );
 };
 
