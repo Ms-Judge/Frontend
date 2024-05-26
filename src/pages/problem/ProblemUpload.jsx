@@ -5,7 +5,7 @@ const ProblemUpload = () => {
   return (
     <>
       <Header />
-      문제 업로드 페이지입니다.
+      
     </>
   )
 }
