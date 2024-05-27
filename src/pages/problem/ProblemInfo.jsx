@@ -1,258 +1,189 @@
-import React from "react";
-import * as _ from "./style";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
 import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 
-const ProblemInfo = ({
-  number,
-  title,
-  time_limit,
-  memory_limit,
-  content,
-  input,
-  output,
-  algorithm,
-}) => {
+const ProblemInfo = () => {
+  const navigate = useNavigate();
+  const [title, setTitle] = useState("A + B = ?");
+  const [problemNumber, setProblemNumber] = useState("0001");
+  const [timeLimit, setTimeLimit] = useState("시간 제한: 1초");
+  const [memoryLimit, setMemoryLimit] = useState("메모리 제한: 128MB");
+  const [problemDescription, setProblemDescription] = useState(
+    "‘A + B’를 계산한 뒤, 위 값을 분석한 결과를 출력하시오."
+  );
+  const [inputExample, setInputExample] = useState("1000 2000 ");
+  const [outputExample, setOutputExample] = useState(
+    "3000\nA값과 B값의 합\nA값의 3배, B값의 1.5배"
+  );
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
+
   return (
     <>
       <Header />
-
-      <_.Content>
-        <_.MenuList>
-          <_.ShortBlockSet>
-            <_.ShortBlock>
-              <Link to="">문제 보기</Link>
-            </_.ShortBlock>
-            <_.ShortBlock>
-              <Link to="">코드 제출</Link>
-            </_.ShortBlock>
-            <_.ShortBlock>
-              <Link to="">제출 현황</Link>
-            </_.ShortBlock>
-          </_.ShortBlockSet>
-          <_.LongBlock>
-            <Link to="">질문 게시판 가기</Link>
-          </_.LongBlock>
-        </_.MenuList>
-        <ProblemInformation>
-          <ProblemData>
-            <ProblemNumber>0001{number}</ProblemNumber>
-            <ProblemTitle>A + B = ?{title}</ProblemTitle>
-          </ProblemData>
-          <ProblemLimit>
-            <ProblemTimeLimit>
-              <ProblemTimeLimitBlock>시간 제한</ProblemTimeLimitBlock>
-              <ProblemTimeLimitBlock>1초{time_limit}</ProblemTimeLimitBlock>
-            </ProblemTimeLimit>
-            <ProblemMemoryLimit>
-              <ProblemMemoryLimitBlock>메모리 제한</ProblemMemoryLimitBlock>
-              <ProblemMemoryLimitBlock>
-                128MB{memory_limit}
-              </ProblemMemoryLimitBlock>
-            </ProblemMemoryLimit>
-          </ProblemLimit>
-        </ProblemInformation>
-        <Problem>
-          <ProblemName>문제</ProblemName>
-          <ProblemContent>
-            ‘A + B’를 계산한 뒤, 위 값을 분석한 결과를 출력하시오.{content}
-          </ProblemContent>
-        </Problem>
-        <Putput>
-          <Input>
-            <InputName>입력</InputName>
-            <InputBlock>
-              <InputContent>1000 2000{input}</InputContent>
-            </InputBlock>
-          </Input>
-          <Output>
-            <OutputName>출력</OutputName>
-            <OutputBlock>
-              <OutputContent>
-                3000
-                <br />
-                A값과 B값의 합<br />
-                A값의 3배, B값의 1.5배{output}
-              </OutputContent>
-            </OutputBlock>
-          </Output>
-        </Putput>
-        <Algorithm>
-          <AlgorithmName>알고리즘</AlgorithmName>
-          <AlgorithmContent>수학, 구현{algorithm}</AlgorithmContent>
-        </Algorithm>
-      </_.Content>
+      <Container>
+        <NavigationBar>
+          <NavLeft>
+            <NavItem onClick={() => handleNavigation("/ProblemInfo")}>
+              문제 보기
+            </NavItem>
+            <NavItem onClick={() => handleNavigation("/ProblemSolve")}>
+              코드 제출
+            </NavItem>
+            <NavItem onClick={() => handleNavigation("/submission-status")}>
+              제출 현황
+            </NavItem>
+          </NavLeft>
+          <NavRight>
+            <NavItem onClick={() => handleNavigation("/Question")}>
+              질문 게시판 가기
+            </NavItem>
+          </NavRight>
+        </NavigationBar>
+        <ProblemInfos>
+          <Number>{problemNumber}</Number>
+          <Title>{title}</Title>
+          <Limit>{timeLimit}</Limit>
+          <Limit>{memoryLimit}</Limit>
+        </ProblemInfos>
+        <DescriptionSection>
+          <SectionTitle>문제</SectionTitle>
+          <Description>{problemDescription}</Description>
+          <ExampleSection>
+            <Example>
+              <ExampleTitle>입력</ExampleTitle>
+              <ExampleContent>{inputExample}</ExampleContent>
+            </Example>
+            <Example>
+              <ExampleTitle>출력</ExampleTitle>
+              <ExampleContent>{outputExample}</ExampleContent>
+            </Example>
+          </ExampleSection>
+          <AlgoTitle>알고리즘</AlgoTitle>
+          <Algos>수학, 구현</Algos>
+        </DescriptionSection>
+      </Container>
     </>
   );
 };
 
 export default ProblemInfo;
 
-// 문제 정보
-const ProblemInformation = styled.div`
+const Container = styled.div`
   display: flex;
-  width: 100%;
-  height: 100px;
-  font-weight: 700;
-  border-bottom: 1px solid #d9d9d9;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-`;
-const ProblemData = styled.div`
-  width: 330px;
-  height: 80px;
-  font-size: 30px;
-`;
-const ProblemNumber = styled.div`
-  width: 150px;
-  height: 80px;
-`;
-const ProblemTitle = styled.div`
-  width: 180px;
-  height: 80px;
-`;
-const ProblemLimit = styled.div`
-  width: 220px;
-  height: 90px;
-`;
-const ProblemTimeLimit = styled.div`
-  display: flex;
-  width: 100px;
-  height: 90px;
-  font-size: 20px;
-  flex-direction: column;
-  justify-content: left;
-`;
-const ProblemTimeLimitBlock = styled.div`
-  width: 100%;
-  height: 45px;
-`;
-const ProblemMemoryLimit = styled.div`
-  display: flex;
-  width: 120px;
-  height: 90px;
-  font-size: 20px;
-  flex-direction: column;
-  justify-content: right;
-`;
-const ProblemMemoryLimitBlock = styled.div`
-  width: 100%;
-  height: 45px;
+  margin-top: 20px;
 `;
 
-// 문제 설명
-const Problem = styled.div`
+const NavigationBar = styled.div`
   display: flex;
-  width: 100%;
-  height: 85px; // 문제 설명의 단이 늘어날수록 여백 10px과 문장 30px 추가
-  flex-direction: column;
   justify-content: space-between;
-`;
-const ProblemName = styled.div`
-  display: flex;
-  width: 90px;
-  height: 45px;
-  font-size: 30px;
-  font-weight: 700;
-  border-bottom: 1px solid #000000;
-  justify-content: left;
-`;
-const ProblemContent = styled.div`
-  width: 100%;
-  height: 30px; // 문제 설명의 단이 늘어날수록 여백 10px과 문장 30px 추가
-  font-size: 20px;
-  font-weight: 500;
+  width: 60%;
+  padding: 10px 20px;
+  border-bottom: 1px solid #000;
 `;
 
-// 입출력
-const Putput = styled.div`
+const NavLeft = styled.div`
   display: flex;
-  width: 1280px;
-  height: 175px; // 입출력 문장에 따라 30px 추가
+  gap: 20px;
+`;
+
+const NavItem = styled.div`
+  cursor: pointer;
+  font-size: 18px;
+`;
+
+const ProblemInfos = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  border-bottom: 1px solid #d9d9d9;
+  width: 60%;
+`;
+
+const Title = styled.h1`
+  font-size: 24px;
+  margin-bottom: 5px;
+`;
+
+const Number = styled.h2`
+  font-size: 18px;
+  margin-bottom: 10px;
+`;
+
+const Limit = styled.p`
+  font-size: 16px;
+  margin: 2px 0;
+`;
+
+const NavRight = styled.div`
+  display: flex;
+`;
+
+const DescriptionSection = styled.div`
+  width: 60%;
+  margin-top: 10px;
+  align-items: flex-start;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: inline-block;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  width: auto;
+`;
+
+const Description = styled.p`
+  font-size: 15px;
+  margin-bottom: 20px;
+  text-align: left;
+`;
+
+const ExampleSection = styled.div`
+  display: flex;
   justify-content: space-between;
 `;
 
-// 입력
-const Input = styled.div`
-  display: flex;
-  width: 630px;
-  height: 115px; // 입력의 문장에 따라 30px 추가
-  flex-direction: column;
-  justify-content: space-between;
-`;
-const InputName = styled.div`
-  display: flex;
-  width: 90px;
-  height: 45px;
-  font-size: 30px;
-  font-weight: 700;
-  border-bottom: 1px solid #000000;
-  justify-content: left;
-`;
-const InputBlock = styled.div`
-  width: 100%;
-  height: 60px; // 입력의 문장에 따라 30px 추가
-  font-size: 20px;
-  font-weight: 500;
-  background-color: #fafafa;
-  border: 1px solid #000000;
-`;
-const InputContent = styled.div`
-  width: 600px;
-  height: 30px; // 입력의 문장에 따라 30px 추가
+const Example = styled.div`
+  width: 45%;
 `;
 
-// 출력
-const Output = styled.div`
-  display: flex;
-  width: 630px;
-  height: 175px; // 출력의 문장에 따라 30px 추가
-  flex-direction: column;
-  justify-content: space-between;
-`;
-const OutputName = styled.div`
-  display: flex;
-  width: 90px;
-  height: 45px;
-  font-size: 30px;
-  font-weight: 700;
-  border-bottom: 1px solid #000000;
-  justify-content: left;
-`;
-const OutputBlock = styled.div`
-  width: 100%;
-  height: 120px; // 출력의 문장에 따라 30px 추가
-  font-size: 20px;
-  font-weight: 500;
-  background-color: #fafafa;
-  border: 1px solid #000000;
-`;
-const OutputContent = styled.div`
-  width: 600px;
-  height: 90px;
+const ExampleTitle = styled.h3`
+  font-size: 18px;
+  margin-bottom: 5px;
+  display: inline-block;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  width: auto;
 `;
 
-// 알고리즘
-const Algorithm = styled.div`
-  display: flex;
-  width: 1280px;
-  height: 85px;
-  flex-direction: column;
-  justify-content: space-between;
+const ExampleContent = styled.pre`
+  background-color: #ffffff;
+  padding: 10px;
+  font-size: 16px;
+
+  border: 1px solid #000;
 `;
-const AlgorithmName = styled.div`
-  display: flex;
-  width: 180px;
-  height: 45px;
-  font-size: 30px;
-  font-weight: 700;
-  border-bottom: 1px solid #000000;
-  justify-content: left;
-`;
-const AlgorithmContent = styled.div`
-  width: 100%;
-  height: 30px;
+
+const AlgoTitle = styled.h2`
   font-size: 20px;
-  font-weight: 500;
+  margin-bottom: 10px;
+  display: inline-block;
+  text-align: center;
+  border-bottom: 1px solid #000;
+  width: auto;
+`;
+
+const Algos = styled.div`
+  font-size: 15px;
+  margin-bottom: 20px;
+  text-align: left;
 `;
