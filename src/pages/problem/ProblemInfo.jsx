@@ -33,7 +33,7 @@ const ProblemInfo = () => {
             <NavItem onClick={() => handleNavigation("/ProblemSolve")}>
               코드 제출
             </NavItem>
-            <NavItem onClick={() => handleNavigation("/submission-status")}>
+            <NavItem onClick={() => handleNavigation("/SubmissionStatus")}>
               제출 현황
             </NavItem>
           </NavLeft>
