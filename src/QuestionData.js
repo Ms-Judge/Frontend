@@ -20,7 +20,7 @@ const postQuestionList = [
     "createDate":  "2020-10-25"
   }, 
   {
-    "title": "아니 이거 어케 풀어요?",
+    "title": "핫픽스 수정중입니다.",
     "id": "hong",
     "createDate":  "2020-10-25"
   }, 
