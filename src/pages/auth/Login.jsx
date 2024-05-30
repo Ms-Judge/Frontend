@@ -2,16 +2,33 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Header from "../../components/Header";
+import { login } from "../../apis/auth";  // 로그인 API 호출을 임포트
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false); // 로그인 정보 기억 체크박스 상태
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("로그인 시도:", email, password);
+    console.log("로그인 시도:", id, password);
+
+    try {
+      const response = await login({ id, password });
+      const token = response.token;  // 서버가 반환한 토큰을 저장
+
+      if (rememberMe) {
+        localStorage.setItem('accessToken', token);
+      } else {
+        sessionStorage.setItem('accessToken', token);
+      }
+
+      navigate("/mypage");
+    } catch (error) {
+      console.error('Login failed:', error);
+      alert('로그인에 실패했습니다. 다시 시도해 주세요.');
+    }
   };
 
   const handleSignupClick = () => {
@@ -33,14 +50,14 @@ const Login = () => {
         <SignupForm onSubmit={handleSubmit}>
           <Title>로그인</Title>
           <InputGroup>
-            <Label htmlFor="email">이메일</Label>
+            <Label htmlFor="email">아이디</Label>
             <Input
               type="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={id}
+              onChange={(e) => setId(e.target.value)}
               required
-              placeholder="이메일을 입력해 주세요"
+              placeholder="아이디를 입력해 주세요"
             />
           </InputGroup>
           <InputGroup>

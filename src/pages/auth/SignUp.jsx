@@ -2,30 +2,38 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/Header";
+import { signup } from "../../apis/auth";  // 회원가입 API 호출을 임포트
 
 const SignUp = () => {
   const [name, setName] = useState("");
-  const [userId, setUserId] = useState("");
+  const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     if (password !== confirmPassword) {
       alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
       return;
     }
-    console.log("회원가입 정보:", {
-      name,
-      userId,
-      email,
-      password,
-      confirmPassword,
-    });
+
+    const userData = { name, id, email, password };
+
+    try {
+      const response = await signup(userData);
+      console.log('Signup successful:', response);
+      alert('회원가입이 성공적으로 완료되었습니다.');
+      navigate("/login");
+    } catch (error) {
+      console.error('Signup failed:', error);
+      alert('회원가입에 실패했습니다. 다시 시도해 주세요.');
+    }
   };
+
   const handleLoginClick = () => {
-    navigate("/Login");
+    navigate("/login");
   };
 
   return (
@@ -54,7 +62,7 @@ const SignUp = () => {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
-                placeholder="비밀번호를 다시 입력해주세요."
+                placeholder="비밀번호를 다시 입력해 주세요."
               />
             </InputGroup>
           </FormGroup>
@@ -75,8 +83,8 @@ const SignUp = () => {
               <Input
                 type="text"
                 id="userId"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
+                value={id}
+                onChange={(e) => setId(e.target.value)}
                 required
                 placeholder="사용할 ID를 입력해 주세요."
               />
@@ -84,7 +92,7 @@ const SignUp = () => {
           </FormGroup>
           <SubmitButton type="submit">회원가입</SubmitButton>
           <LoginPromptText>
-            계정이 없으신가요?
+            계정이 있으신가요?
             <LoginText onClick={handleLoginClick}>로그인</LoginText>
           </LoginPromptText>
         </SignupForm>
