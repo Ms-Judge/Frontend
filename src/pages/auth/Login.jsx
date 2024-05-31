@@ -16,13 +16,11 @@ const Login = () => {
 
     try {
       const response = await login({ id, password });
-      const token = response.token;  // 서버가 반환한 토큰을 저장
+      const token = response.access_token;  // 서버가 반환한 토큰을 저장
+      const refreshToken = response.refresh_token; 
 
-      if (rememberMe) {
-        localStorage.setItem('accessToken', token);
-      } else {
-        sessionStorage.setItem('accessToken', token);
-      }
+      localStorage.setItem('accessToken', token);
+      localStorage.setItem('refreshToken', refreshToken);
 
       navigate("/mypage");
     } catch (error) {
@@ -50,10 +48,10 @@ const Login = () => {
         <SignupForm onSubmit={handleSubmit}>
           <Title>로그인</Title>
           <InputGroup>
-            <Label htmlFor="email">아이디</Label>
+            <Label htmlFor="text">아이디</Label>
             <Input
-              type="email"
-              id="email"
+              type="text"
+              id="text"
               value={id}
               onChange={(e) => setId(e.target.value)}
               required

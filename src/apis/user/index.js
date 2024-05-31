@@ -2,7 +2,7 @@ import axiosInstance from '../config/axiosConfig';
 
 export const getUserInfo = async () => {
   try {
-    const response = await axiosInstance.get('/mypage');
+    const response = await axiosInstance.get('/api/mypage');
     return response.data;
   } catch (error) {
     throw error;
@@ -11,7 +11,7 @@ export const getUserInfo = async () => {
 
 export const updateUserInfo = async (userData) => {
   try {
-    const response = await axiosInstance.put('/mypage', userData);
+    const response = await axiosInstance.patch('/api/mypage', userData);
     return response.data;
   } catch (error) {
     throw error;

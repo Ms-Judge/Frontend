@@ -10,7 +10,7 @@ import {
   Question,
   ProblemUpload,
 } from "../assets";
-import { logoutUser } from "../../apis/user"; // 로그아웃 API 호출을 임포트
+import { logoutUser } from "../apis/auth"; // 로그아웃 API 호출을 임포트
 
 // NavLinkWithIcon 컴포넌트 수정
 const NavLinkWithIcon = ({ icon, children, to, onClick }) => (

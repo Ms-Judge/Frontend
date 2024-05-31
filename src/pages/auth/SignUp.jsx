@@ -5,7 +5,6 @@ import Header from "../../components/Header";
 import { signup } from "../../apis/auth";  // 회원가입 API 호출을 임포트
 
 const SignUp = () => {
-  const [name, setName] = useState("");
   const [id, setId] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +18,7 @@ const SignUp = () => {
       return;
     }
 
-    const userData = { name, id, email, password };
+    const userData = { id, password, email};
 
     try {
       const response = await signup(userData);
