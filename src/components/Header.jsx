@@ -35,10 +35,10 @@ const Header = () => {
   const handleLogout = async () => {
     try {
       await logoutUser(); // 서버에 로그아웃 요청
-      localStorage.removeItem('accessToken');
       // 쿠키 비우기
-      document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      // document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
       setIsLoggedIn(false);
+      localStorage.removeItem('refreshToken');
       navigate('/'); // 로그아웃 후 홈 페이지로 이동
     } catch (error) {
       console.error('Logout failed:', error);
@@ -66,15 +66,15 @@ const Header = () => {
         </NavLinkWithIcon>
       </Nav>
       <Nav>
-        {isLoggedIn ? (
+        {/* {isLoggedIn ? (
           <NavLinkWithIcon to="/" icon={LogoutLogin} onClick={handleLogout}>
             로그아웃
           </NavLinkWithIcon>
         ) : (
+        )} */}
           <NavLinkWithIcon to="/Login" icon={LogoutLogin}>
             로그인
           </NavLinkWithIcon>
-        )}
         <NavLinkWithIcon to="/Mypage" icon={MyPageIcon}>
           마이페이지
         </NavLinkWithIcon>
