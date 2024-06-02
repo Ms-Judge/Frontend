@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   MSJLogo,
   LogoutLogin,
@@ -11,6 +11,7 @@ import {
   ProblemUpload,
 } from "../assets";
 import { logoutUser } from "../apis/auth"; // 로그아웃 API 호출을 임포트
+import { useAuth } from "../context/AuthContext";
 
 // NavLinkWithIcon 컴포넌트 수정
 const NavLinkWithIcon = ({ icon, children, to, onClick }) => (
@@ -21,27 +22,18 @@ const NavLinkWithIcon = ({ icon, children, to, onClick }) => (
 );
 
 const Header = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // 예시로 로컬 스토리지에 토큰이 있는지 확인하여 로그인 상태를 설정
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
 
   const handleLogout = async () => {
     try {
-      await logoutUser(); // 서버에 로그아웃 요청
-      // 쿠키 비우기
-      // document.cookie = "refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      await logoutUser();
       setIsLoggedIn(false);
+      // localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
-      navigate('/'); // 로그아웃 후 홈 페이지로 이동
+      navigate('/');
     } catch (error) {
-      console.error('Logout failed:', error);
+      console.error('Logout failed:', error)
       alert('로그아웃에 실패했습니다.');
     }
   };
@@ -66,16 +58,16 @@ const Header = () => {
         </NavLinkWithIcon>
       </Nav>
       <Nav>
-        {/* {isLoggedIn ? (
+        {isLoggedIn ? (
           <NavLinkWithIcon to="/" icon={LogoutLogin} onClick={handleLogout}>
             로그아웃
           </NavLinkWithIcon>
         ) : (
-        )} */}
-          <NavLinkWithIcon to="/Login" icon={LogoutLogin}>
+          <NavLinkWithIcon to="/login" icon={LogoutLogin}>
             로그인
           </NavLinkWithIcon>
-        <NavLinkWithIcon to="/Mypage" icon={MyPageIcon}>
+        )}
+        <NavLinkWithIcon to="/mypage" icon={MyPageIcon}>
           마이페이지
         </NavLinkWithIcon>
       </Nav>

@@ -20,32 +20,35 @@ import ProblemSolve from "./pages/problem/ProblemSolve";
 import SolutionUpload from "./pages/problem/SolutionUpload";
 import AnswerCaseForm from "./pages/problem/AnswerCaseForm";
 import SubmissionStatus from "./pages/problem/SubmissionStatus";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
   return (
     <>
       <Global styles={GlobalStyles} />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/Login" element={<Login />} />
-          <Route path="/SignUp" element={<SignUp />} />
-          <Route path="/OpenContest" element={<OpenContest />} />
-          <Route path="/ContestList" element={<ContestList />} />
-          <Route path="/Question" element={<Question />} />
-          <Route path="/Mypage" element={<MyPage />} />
-          <Route path="/ProblemUpload" element={<ProblemUpload />} />
-          <Route path="/FindPasswd" element={<FindPasswd />} />
-          <Route path="/DetailedContest/:title" element={<DetailedContest />} />
-          <Route path="/ProblemInfo/:problems" element={<ProblemInfo />} />
-          <Route path="/ResponseQuestion/:title" element={<ResponseQuestion />} />
-          <Route path="/SubmitQuestion" element={<SubmitQuestion />} />
-          <Route path="/ProblemSolve" element={<ProblemSolve />} />
-          <Route path="/SolutionUpload" element={<SolutionUpload />} />
-          <Route path="/AnswerCaseForm" element={<AnswerCaseForm />} />
-          <Route path="/SubmissionStatus" element={<SubmissionStatus />} />
-        </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/Login" element={<Login />} />
+            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/OpenContest" element={<OpenContest />} />
+            <Route path="/ContestList" element={<ContestList />} />
+            <Route path="/Question" element={<Question />} />
+            <Route path="/Mypage" element={<MyPage />} />
+            <Route path="/ProblemUpload" element={<ProblemUpload />} />
+            <Route path="/FindPasswd" element={<FindPasswd />} />
+            <Route path="/DetailedContest/:title" element={<DetailedContest />} />
+            <Route path="/ProblemInfo/:problems" element={<ProblemInfo />} />
+            <Route path="/ResponseQuestion/:title" element={<ResponseQuestion />} />
+            <Route path="/SubmitQuestion" element={<SubmitQuestion />} />
+            <Route path="/ProblemSolve" element={<ProblemSolve />} />
+            <Route path="/SolutionUpload" element={<SolutionUpload />} />
+            <Route path="/AnswerCaseForm" element={<AnswerCaseForm />} />
+            <Route path="/SubmissionStatus" element={<SubmissionStatus />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </>
   );
 }

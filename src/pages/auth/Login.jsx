@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Header from "../../components/Header";
 import { login } from "../../apis/auth";  // 로그인 API 호출을 임포트
+import { useAuth } from "../../context/AuthContext";
 
 const Login = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false); // 로그인 정보 기억 체크박스 상태
+  const [rememberMe, setRememberMe] = useState(false); //로그인 기록 저장하는 상태 -> 근데 이거 또 추가해야하 하나
   const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,12 +18,13 @@ const Login = () => {
 
     try {
       const response = await login({ id, password });
-      const token = response.access_token;  // 서버가 반환한 토큰을 저장
-      const refreshToken = response.refresh_token; 
+      const token = response.access_token;
+      const refreshToken = response.refresh_token;
 
       localStorage.setItem('accessToken', token);
       localStorage.setItem('refreshToken', refreshToken);
-
+      setIsLoggedIn(true); // 로그인 상태를 true로 설정
+      alert("로그인 성공");
       navigate("/mypage");
     } catch (error) {
       console.error('Login failed:', error);
