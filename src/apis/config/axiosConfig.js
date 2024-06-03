@@ -11,10 +11,15 @@ const axiosInstance = axios.create({
 // 요청 인터셉터 추가
 axiosInstance.interceptors.request.use(
   config => {
-    const token = localStorage.getItem('accessToken');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    
+    if (config.url === '/api/logout' && refreshToken) {
+      config.headers['Authorization'] = `Bearer ${refreshToken}`;
+    } else if (accessToken) {
+      config.headers['Authorization'] = `Bearer ${accessToken}`;
     }
+    
     return config;
   },
   error => {

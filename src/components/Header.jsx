@@ -29,9 +29,8 @@ const Header = () => {
     try {
       await logoutUser();
       setIsLoggedIn(false);
-      // localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
       navigate('/');
+      alert('로그아웃 성공')
     } catch (error) {
       console.error('Logout failed:', error)
       alert('로그아웃에 실패했습니다.');

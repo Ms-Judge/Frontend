@@ -20,12 +20,7 @@ export const login = async (credentials) => {
 
 export const logoutUser = async () => {
   try {
-    const refreshToken = localStorage.getItem('refreshToken');
-    const response = await axiosInstance.post('/api/logout', {},  {
-      headers: {
-        'Authorization': `Bearer ${refreshToken}`
-      }
-    });
+    const response = await axiosInstance.post('/api/logout', {});
     return response.data;
   } catch (error) {
     throw error;
