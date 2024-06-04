@@ -39,14 +39,14 @@ const MyPage = () => {
   };
 
   const handleWithdrawClick = async () => {
-    try {
-      await withdrawUser();
-      alert('회원 탈퇴가 성공적으로 처리되었습니다.');
-      // 필요에 따라 추가 로직 (예: 로그아웃 처리, 홈 페이지로 이동 등)
-    } catch (error) {
-      console.error('Failed to withdraw user:', error);
-      alert('회원 탈퇴에 실패했습니다.');
-    }
+    // try {
+    //   await withdrawUser();
+    //   alert('회원 탈퇴가 성공적으로 처리되었습니다.');
+    //   // 필요에 따라 추가 로직 (예: 로그아웃 처리, 홈 페이지로 이동 등)
+    // } catch (error) {
+    //   console.error('Failed to withdraw user:', error);
+    //   alert('회원 탈퇴에 실패했습니다.');
+    // }
   };
 
   const handleInputChange = (e) => {

@@ -18,11 +18,11 @@ export const updateUserInfo = async (userData) => {
   }
 };
 
-export const withdrawUser = async () => {
-  try {
-    const response = await axiosInstance.post('/api/logout');
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+// export const withdrawUser = async () => {
+//   try {
+//     const response = await axiosInstance.post('/api/logout');
+//     return response.data;
+//   } catch (error) {
+//     throw error;
+//   }
+// };
