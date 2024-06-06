@@ -15,8 +15,24 @@ const ResponseQuestion = () => {
   const [resDataList, setResDataList] = useState([]);
   const [title, setTitle] = useState("");
   const [answer_Description, setAnswer_Description] = useState("");
+  const [question_id, setQuestion_id] = useState(0);
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("답변 업로드 시도:", title, answer_Description, question_id);
+    try {
+      await 
+      alert("업로드 성공");
+      navigate("/Question");
+    } catch (error) {
+      console.error('Upload failed:', error);
+      alert('업로드에 실패했습니다. 다시 시도해 주세요.');
+    }
+  };
 
+  const handleReturnClick = () => {
+    navigate("/Question");
+  };
 
   useEffect(() => {
     setDataList(postQuestionReqList);
@@ -66,7 +82,7 @@ const ResponseQuestion = () => {
             <InputGroup.Text id="basic-addon1">제목</InputGroup.Text>
             <Form.Control
               placeholder="제목을 입력해주세요"
-              
+              onChange={(e) => setTitle(e.target.value)}
             />
           </InputGroup>
         </QuestionTitle>
@@ -74,14 +90,14 @@ const ResponseQuestion = () => {
         <InputWrapper>
         <StyledFormControl
               placeholder="내용을 입력해주세요"
-              // onChange={}
+              onChange={(e) => setAnswer_Description(e.target.value)}
             />
         </InputWrapper>
         {/* 버튼 컴포넌트 */}
         <ButtonWraper>
           {/* 연동할때 리퀘스트 쏘고 목록으로 가도록 onClick 이벤트 적용해야힘. */}
-          <SubmitButton>댓글쓰기</SubmitButton>
-          <CancelButton onClick={() => navigate(`/Question`)}>돌아가기</CancelButton>
+          <SubmitButton onClick={handleSubmit}>댓글쓰기</SubmitButton>
+          <CancelButton onClick={handleReturnClick}>돌아가기</CancelButton>
         </ButtonWraper>
       </ListWrapper>
     </div>

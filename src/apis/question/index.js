@@ -21,3 +21,11 @@ export const answerUpload = async (answer) => {
   }
 };
 
+export const getQuestions = async () => {
+  try {
+    const response = await axiosInstance.get('/api/questions');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

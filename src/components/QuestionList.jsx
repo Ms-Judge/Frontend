@@ -2,8 +2,75 @@ import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled/macro';
 import Table from 'react-bootstrap/Table';
 import { Button, Pagination } from 'react-bootstrap';
-import { postQuestionList } from '../QuestionData';
+// import { postQuestionList } from '../QuestionData';
 import { useNavigate } from 'react-router-dom';
+import { getQuestions } from '../apis/question';
+
+// API 명세서 보고 State로 값 만들기
+const QuestionList = () => {
+  const [active, setActive] = useState(1);
+  const navigate = useNavigate();
+
+  let items = [];
+  for (let number = 1; number <= 5; number++) {
+    items.push(
+      <Pagination.Item key={number} active={number === active} onClick={() => setActive(number)}>
+        {number}
+      </Pagination.Item>,
+    );
+  }
+
+  // 데이터 state
+  const [problems, setProblems] = useState([{}]);
+
+  useEffect(() => {
+    const fetchQuestionInfo = async () => {
+      try {
+        const questionData = await getQuestions();
+        setProblems(questionData.problems);
+      } catch (error) {
+        console.error('Failed to fetch user info:', error);
+      }
+
+    };
+
+    fetchQuestionInfo();
+  })
+  // 명세서 보고 State 만들기
+  return (
+    <ListWrapper>
+      <TitleWrapper>
+        <TitleName>질문 목록</TitleName>
+        <StyledButton hover="true" onClick={() => navigate(`/SubmitQuestion`)}>
+          질문 등록하기
+        </StyledButton>
+      </TitleWrapper>
+      <StyledTable bordered hover="true">
+        <thead>
+          <tr>
+            <th>제목</th>
+            <th>아이디</th>
+            <th>게시일</th>
+          </tr>
+        </thead>
+        {
+          problems.length > 0 ? problems.map((item, index) => (
+            <tbody key={index}>
+              <tr onClick={() => navigate(`/ResponseQuestion/${item.title}`)}>
+                <td>{item.title}</td>
+                <td>{item.id}</td>
+                <td>{item.submit_date}</td> {/* submit_date로 변경 */}
+              </tr>
+            </tbody>
+          )) : <tbody><tr><td colSpan="3">데이터가 없습니다.</td></tr></tbody>
+        }
+      </StyledTable>
+      <StyledPagination>{items}</StyledPagination>
+    </ListWrapper>
+  );
+}
+
+export default QuestionList;
 
 // Table 컴포넌트를 styled-components로 감싸 스타일 정의
 const StyledTable = styled(Table)`
@@ -39,67 +106,6 @@ const StyledTable = styled(Table)`
     }
   }
 `;
-
-
-
-// API 명세서 보고 State로 값 만들기
-const QuestionList = () => {
-  const [active, setActive] = useState(1);
-  const navigate = useNavigate();
-
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active} onClick={() => setActive(number)}>
-        {number}
-      </Pagination.Item>,
-    );
-  }
-
-  // 데이터 state
-  const [dataList, setDataList] = useState([]);
-
-  useEffect(() => {
-    setDataList(postQuestionList);
-  }, [])
-
-  // 명세서 보고 State 만들기
-  return (
-    <ListWrapper>
-      <TitleWrapper>
-        <TitleName>질문 목록</TitleName>
-        <StyledButton hover="true" onClick={() => navigate(`/SubmitQuestion`)}>
-          질문 등록하기
-        </StyledButton>
-      </TitleWrapper>
-      <StyledTable bordered hover>
-        <thead>
-          <tr>
-            <th>제목</th>
-            <th>아이디</th>
-            <th>게시일</th>
-          </tr>
-        </thead>
-        {
-          dataList ? dataList.map((item, index) => {
-            return (
-              <tbody>
-                <tr key={index} onClick={() => navigate(`/ResponseQuestion/${item.title}`)}>
-                  <td>{item.title}</td>
-                  <td>{item.id}</td>
-                  <td>{item.createDate}</td>
-                </tr>
-              </tbody>
-            )
-          }) : ''
-        }
-      </StyledTable>
-      <StyledPagination>{items}</StyledPagination>
-    </ListWrapper>
-  );
-}
-
-export default QuestionList;
 
 const TitleName = styled.h1`
   text-align: left;
