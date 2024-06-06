@@ -32,7 +32,7 @@ const StyledTable = styled(Table)`
         td {
           color: #0FA968;
         }
-        td:first-child {
+        td:first-of-type {
           font-weight: 600;
         }
       }
@@ -68,7 +68,7 @@ const QuestionList = () => {
     <ListWrapper>
       <TitleWrapper>
         <TitleName>질문 목록</TitleName>
-        <StyledButton hover onClick={() => navigate(`/SubmitQuestion`)}>
+        <StyledButton hover="true" onClick={() => navigate(`/SubmitQuestion`)}>
           질문 등록하기
         </StyledButton>
       </TitleWrapper>

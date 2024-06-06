@@ -1,10 +1,7 @@
 // 질문 답변 페이지
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from '@toast-ui/react-editor'
 import styled from '@emotion/styled/macro';
-import '@toast-ui/editor/dist/i18n/ko-kr';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { postQuestionReqList } from '../../QuestionReqData';
@@ -16,6 +13,10 @@ const ResponseQuestion = () => {
   const navigate = useNavigate();
   const [dataList, setDataList] = useState([]);
   const [resDataList, setResDataList] = useState([]);
+  const [title, setTitle] = useState("");
+  const [answer_Description, setAnswer_Description] = useState("");
+
+
 
   useEffect(() => {
     setDataList(postQuestionReqList);
@@ -65,24 +66,17 @@ const ResponseQuestion = () => {
             <InputGroup.Text id="basic-addon1">제목</InputGroup.Text>
             <Form.Control
               placeholder="제목을 입력해주세요"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
+              
             />
           </InputGroup>
         </QuestionTitle>
 
-        <EditorWrapper>
-          <Editor
-            height="180px"
-            initialValue=" "
-            previewStyle="vertical" // or tab
-            initialEditType="wysiwyg"
-            hideModeSwitch="true"
-            language="ko-KR"
-            useCommandShortcut={false} // 키보드 입력 컨트롤 방지 ex ctrl z 등
-            usageStatistics={false} // 통계 수집 거부
-          />
-        </EditorWrapper>
+        <InputWrapper>
+        <StyledFormControl
+              placeholder="내용을 입력해주세요"
+              // onChange={}
+            />
+        </InputWrapper>
         {/* 버튼 컴포넌트 */}
         <ButtonWraper>
           {/* 연동할때 리퀘스트 쏘고 목록으로 가도록 onClick 이벤트 적용해야힘. */}
@@ -102,10 +96,17 @@ const TitleName = styled.h1`
   margin-bottom: 20px;
 `
 
-const EditorWrapper = styled.div`
+const InputWrapper = styled.div`
   width: 60%;
   margin-bottom: 20px;
+  border: 2px solid silver;
 `
+
+const StyledFormControl = styled.input`
+  width: 60%;
+  height: 80px;  /* 원하는 높이로 수정 */
+`;
+
 const ListWrapper = styled.div`
   display: flex; // Flexbox를 활성화합니다.
   flex-direction: column; // 자식 요소들을 세로로 배치합니다.
@@ -119,7 +120,6 @@ const ListWrapper = styled.div`
 const QuestionTitle = styled.div`
   width: 60%;
 `
-
 
 const ButtonWraper = styled.div`
   display: inline;

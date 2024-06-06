@@ -27,11 +27,4 @@ export const logoutUser = async () => {
   }
 };
 
-export const refreshAccessToken = async (tokenData) => {
-  try {
-    const response = await axiosInstance.post('/api/access-token', tokenData);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
+
