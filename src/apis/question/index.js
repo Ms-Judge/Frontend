@@ -29,3 +29,13 @@ export const getQuestions = async () => {
     throw error;
   }
 };
+
+export const getAnswers = async () => {
+  try {
+    const response = await axiosInstance.get('/api/answers');
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
