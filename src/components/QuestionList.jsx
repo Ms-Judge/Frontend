@@ -56,7 +56,7 @@ const QuestionList = () => {
         {
           problems.length > 0 ? problems.map((item, index) => (
             <tbody key={index}>
-              <tr onClick={() => navigate(`/ResponseQuestion/${item.title}`)}>
+              <tr onClick={() => navigate(`/ResponseQuestion/${item.submit_date}/${item.id}`)}>
                 <td>{item.title}</td>
                 <td>{item.id}</td>
                 <td>{item.submit_date}</td> {/* submit_date로 변경 */}

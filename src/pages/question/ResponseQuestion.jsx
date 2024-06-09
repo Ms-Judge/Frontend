@@ -3,25 +3,29 @@ import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
 import styled from '@emotion/styled/macro';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { postQuestionReqList } from '../../QuestionReqData';
+import { useNavigate, useParams } from 'react-router-dom';
 import { postQuestionResList } from '../../QuestionResData';
+import { answerUpload, getAnswers, getQuestions } from '../../apis/question';
 
 
 
 const ResponseQuestion = () => {
   const navigate = useNavigate();
+  const param = useParams();
   const [dataList, setDataList] = useState([]);
   const [resDataList, setResDataList] = useState([]);
-  const [title, setTitle] = useState("");
-  const [answer_Description, setAnswer_Description] = useState("");
-  const [question_id, setQuestion_id] = useState(0);
+  const [answer, setAnswer] = useState({
+    title: "",
+    answer_Description: "",
+    question_id: "0",
+  })
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("답변 업로드 시도:", title, answer_Description, question_id);
+    console.log("답변 업로드 시도:", answer);
     try {
-      await 
+      await answerUpload(answer)
       alert("업로드 성공");
       navigate("/Question");
     } catch (error) {
@@ -35,8 +39,30 @@ const ResponseQuestion = () => {
   };
 
   useEffect(() => {
-    setDataList(postQuestionReqList);
-    setResDataList(postQuestionResList);
+
+    const fetchQuestionInfo = async () => {
+      try {
+        const questionData = await getQuestions();
+        setDataList(questionData.problems);
+      } catch (error) {
+        console.error('Failed to fetch answer info:', error);
+      }
+    }
+
+    const fetchAnswersInfo = async () => {
+      try {
+        const answerData = await getAnswers();
+        setResDataList(answerData.answers);
+      } catch (error) {
+        console.error('Failed to fetch answer info:', error);
+      }
+    };
+
+
+
+
+    fetchAnswersInfo();
+    fetchQuestionInfo();
   }, [])
 
 
@@ -47,25 +73,29 @@ const ResponseQuestion = () => {
       <ListWrapper>
         {
           dataList ? dataList.map((item, index) => {
-            return (
-              <>
-                <TitleName>{item.title}</TitleName>
-                <QuestionText>
-                  <p>{item.question_Description}</p>
-                </QuestionText>
-              </>
-            )
+            if (item.submit_date == param.submit_date && item.id == param.id) {
+              return (
+                <>
+                  <TitleName>{item.title}</TitleName>
+                  <QuestionText>
+                    <p>{item.question_Description}</p>
+                  </QuestionText>
+                </>
+
+              )
+            }
           }) : ''
         }
+
+
 
         {
           resDataList ? resDataList.map((item, index) => {
             return (
               <>
                 <ResponseTextWrapper>
-                   {/* item.title 이거 연동(쿼리 사용할때 수정해야 함. */}
                   <ResponseTextTitle>{item.title}</ResponseTextTitle>
-                  <ResponseText>{item.answer_Description}</ResponseText>
+                  <ResponseText>{item.answer_description}</ResponseText>
                 </ResponseTextWrapper>
               </>
             )
@@ -82,16 +112,26 @@ const ResponseQuestion = () => {
             <InputGroup.Text id="basic-addon1">제목</InputGroup.Text>
             <Form.Control
               placeholder="제목을 입력해주세요"
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) =>
+                setAnswer((prevState) => ({
+                  ...prevState,
+                  title: e.target.value,
+                }))
+              }
             />
           </InputGroup>
         </QuestionTitle>
 
         <InputWrapper>
-        <StyledFormControl
-              placeholder="내용을 입력해주세요"
-              onChange={(e) => setAnswer_Description(e.target.value)}
-            />
+          <StyledFormControl
+            placeholder="내용을 입력해주세요"
+            onChange={(e) =>
+              setAnswer((prevState) => ({
+                ...prevState,
+                answer_Description: e.target.value,
+              }))
+            }
+          />
         </InputWrapper>
         {/* 버튼 컴포넌트 */}
         <ButtonWraper>
@@ -104,7 +144,7 @@ const ResponseQuestion = () => {
   )
 }
 
-export default ResponseQuestion
+export default ResponseQuestion;
 
 const TitleName = styled.h1`
   text-align: left;

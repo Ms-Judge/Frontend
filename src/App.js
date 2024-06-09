@@ -40,7 +40,7 @@ function App() {
             <Route path="/FindPasswd" element={<FindPasswd />} />
             <Route path="/DetailedContest/:title" element={<DetailedContest />} />
             <Route path="/ProblemInfo/:problems" element={<ProblemInfo />} />
-            <Route path="/ResponseQuestion/:title" element={<ResponseQuestion />} />
+            <Route path="/ResponseQuestion/:submit_date/:id" element={<ResponseQuestion />} />
             <Route path="/SubmitQuestion" element={<SubmitQuestion />} />
             <Route path="/ProblemSolve" element={<ProblemSolve />} />
             <Route path="/SolutionUpload" element={<SolutionUpload />} />
