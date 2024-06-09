@@ -1,25 +1,68 @@
 // 질문 답변 페이지
 import React, { useEffect, useState } from 'react'
 import Header from '../../components/Header'
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from '@toast-ui/react-editor'
 import styled from '@emotion/styled/macro';
-import '@toast-ui/editor/dist/i18n/ko-kr';
 import { Button, Form, InputGroup } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
-import { postQuestionReqList } from '../../QuestionReqData';
+import { useNavigate, useParams } from 'react-router-dom';
 import { postQuestionResList } from '../../QuestionResData';
+import { answerUpload, getAnswers, getQuestions } from '../../apis/question';
 
 
 
 const ResponseQuestion = () => {
   const navigate = useNavigate();
+  const param = useParams();
   const [dataList, setDataList] = useState([]);
   const [resDataList, setResDataList] = useState([]);
+  const [answer, setAnswer] = useState({
+    title: "",
+    answer_Description: "",
+    question_id: "0",
+  })
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("답변 업로드 시도:", answer);
+    try {
+      await answerUpload(answer)
+      alert("업로드 성공");
+      navigate("/Question");
+    } catch (error) {
+      console.error('Upload failed:', error);
+      alert('업로드에 실패했습니다. 다시 시도해 주세요.');
+    }
+  };
+
+  const handleReturnClick = () => {
+    navigate("/Question");
+  };
 
   useEffect(() => {
-    setDataList(postQuestionReqList);
-    setResDataList(postQuestionResList);
+
+    const fetchQuestionInfo = async () => {
+      try {
+        const questionData = await getQuestions();
+        setDataList(questionData.problems);
+      } catch (error) {
+        console.error('Failed to fetch answer info:', error);
+      }
+    }
+
+    const fetchAnswersInfo = async () => {
+      try {
+        const answerData = await getAnswers();
+        setResDataList(answerData.answers);
+      } catch (error) {
+        console.error('Failed to fetch answer info:', error);
+      }
+    };
+
+
+
+
+    fetchAnswersInfo();
+    fetchQuestionInfo();
   }, [])
 
 
@@ -30,25 +73,29 @@ const ResponseQuestion = () => {
       <ListWrapper>
         {
           dataList ? dataList.map((item, index) => {
-            return (
-              <>
-                <TitleName>{item.title}</TitleName>
-                <QuestionText>
-                  <p>{item.question_Description}</p>
-                </QuestionText>
-              </>
-            )
+            if (item.submit_date == param.submit_date && item.id == param.id) {
+              return (
+                <>
+                  <TitleName>{item.title}</TitleName>
+                  <QuestionText>
+                    <p>{item.question_Description}</p>
+                  </QuestionText>
+                </>
+
+              )
+            }
           }) : ''
         }
+
+
 
         {
           resDataList ? resDataList.map((item, index) => {
             return (
               <>
                 <ResponseTextWrapper>
-                   {/* item.title 이거 연동(쿼리 사용할때 수정해야 함. */}
                   <ResponseTextTitle>{item.title}</ResponseTextTitle>
-                  <ResponseText>{item.answer_Description}</ResponseText>
+                  <ResponseText>{item.answer_description}</ResponseText>
                 </ResponseTextWrapper>
               </>
             )
@@ -65,36 +112,39 @@ const ResponseQuestion = () => {
             <InputGroup.Text id="basic-addon1">제목</InputGroup.Text>
             <Form.Control
               placeholder="제목을 입력해주세요"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
+              onChange={(e) =>
+                setAnswer((prevState) => ({
+                  ...prevState,
+                  title: e.target.value,
+                }))
+              }
             />
           </InputGroup>
         </QuestionTitle>
 
-        <EditorWrapper>
-          <Editor
-            height="180px"
-            initialValue=" "
-            previewStyle="vertical" // or tab
-            initialEditType="wysiwyg"
-            hideModeSwitch="true"
-            language="ko-KR"
-            useCommandShortcut={false} // 키보드 입력 컨트롤 방지 ex ctrl z 등
-            usageStatistics={false} // 통계 수집 거부
+        <InputWrapper>
+          <StyledFormControl
+            placeholder="내용을 입력해주세요"
+            onChange={(e) =>
+              setAnswer((prevState) => ({
+                ...prevState,
+                answer_Description: e.target.value,
+              }))
+            }
           />
-        </EditorWrapper>
+        </InputWrapper>
         {/* 버튼 컴포넌트 */}
         <ButtonWraper>
           {/* 연동할때 리퀘스트 쏘고 목록으로 가도록 onClick 이벤트 적용해야힘. */}
-          <SubmitButton>댓글쓰기</SubmitButton>
-          <CancelButton onClick={() => navigate(`/Question`)}>돌아가기</CancelButton>
+          <SubmitButton onClick={handleSubmit}>댓글쓰기</SubmitButton>
+          <CancelButton onClick={handleReturnClick}>돌아가기</CancelButton>
         </ButtonWraper>
       </ListWrapper>
     </div>
   )
 }
 
-export default ResponseQuestion
+export default ResponseQuestion;
 
 const TitleName = styled.h1`
   text-align: left;
@@ -102,10 +152,17 @@ const TitleName = styled.h1`
   margin-bottom: 20px;
 `
 
-const EditorWrapper = styled.div`
+const InputWrapper = styled.div`
   width: 60%;
   margin-bottom: 20px;
+  border: 2px solid silver;
 `
+
+const StyledFormControl = styled.input`
+  width: 60%;
+  height: 80px;  /* 원하는 높이로 수정 */
+`;
+
 const ListWrapper = styled.div`
   display: flex; // Flexbox를 활성화합니다.
   flex-direction: column; // 자식 요소들을 세로로 배치합니다.
@@ -119,7 +176,6 @@ const ListWrapper = styled.div`
 const QuestionTitle = styled.div`
   width: 60%;
 `
-
 
 const ButtonWraper = styled.div`
   display: inline;

@@ -1,14 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Header from '../../components/Header'
-import "@toast-ui/editor/dist/toastui-editor.css";
-import { Editor } from '@toast-ui/react-editor'
 import styled from '@emotion/styled/macro';
 import { Button, Form, InputGroup } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import '@toast-ui/editor/dist/i18n/ko-kr';
+import { questionUpload } from '../../apis/question';
 
 const SubmitQuestion = () => {
   const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [question_Description, setQuestion_Description] = useState("");
+
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("질문 업로드 시도:", title);
+    try {
+      await questionUpload({title, question_Description});
+      alert("업로드 성공");
+      navigate("/Question");
+    } catch (error) {
+      console.error('Upload failed:', error);
+      alert('업로드에 실패했습니다. 다시 시도해 주세요.');
+    }
+  };
+
+  const handleReturnClick = () => {
+    navigate("/Question");
+  };
 
   return (
     <div>
@@ -22,29 +40,22 @@ const SubmitQuestion = () => {
             <InputGroup.Text id="basic-addon1">제목</InputGroup.Text>
             <Form.Control
               placeholder="제목을 입력해주세요"
-              aria-label="Username"
-              aria-describedby="basic-addon1"
+              onChange={(e) => setTitle(e.target.value)}
             />
           </InputGroup>
         </QuestionTitle>
 
-          <EditorWrapper>
-            <Editor
-              height="350px"
-              initialValue=" "
-              previewStyle="vertical" // or tab
-              initialEditType="wysiwyg"
-              hideModeSwitch= "true"
-              language="ko-KR"
-              usageStatistics={false} // 통계 수집 거부
+        <InputWrapper>
+            <StyledFormControl
+              placeholder="내용을 입력해주세요"
+              onChange={(e) => setQuestion_Description(e.target.value)}
             />
-          </EditorWrapper>
-
+        </InputWrapper>
           {/* 버튼 컴포넌트 */}
           <ButtonWraper>
             {/* 연동할때 리퀘스트 쏘고 목록으로 가도록 onClick 이벤트 적용해야힘. */}
-            <SubmitButton>글쓰기</SubmitButton>
-            <CancelButton onClick={() => navigate(`/Question`)}>돌아가기</CancelButton>
+            <SubmitButton onClick={handleSubmit}>글쓰기</SubmitButton>
+            <CancelButton onClick={handleReturnClick}>돌아가기</CancelButton>
           </ButtonWraper>
         </ListWrapper>
 
@@ -63,11 +74,16 @@ const TitleName = styled.h1`
   margin-bottom: 20px;
 `
 
-const EditorWrapper = styled.div`
+const InputWrapper = styled.div`
   width: 60%;
   margin-bottom: 20px;
+  border: 2px solid silver;
+  `
+  const StyledFormControl = styled.input`
+    width: 60%;
+    height: 400px;  /* 원하는 높이로 수정 */
+  `;
 
-`
 const ListWrapper = styled.div`
   display: flex; // Flexbox를 활성화합니다.
   flex-direction: column; // 자식 요소들을 세로로 배치합니다.
@@ -80,7 +96,6 @@ const QuestionTitle = styled.div`
 const ButtonWraper = styled.div`
   display: inline;
   align-items: center;
-
 `;
 
 const SubmitButton = styled(Button)`
@@ -110,5 +125,3 @@ const CancelButton = styled(Button)`
   }
   
 `;
-
-

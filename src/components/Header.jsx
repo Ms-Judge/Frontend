@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import React from "react";
 import {
@@ -6,20 +6,37 @@ import {
   LogoutLogin,
   Hold,
   Participation,
-  MyPage,
+  MyPage as MyPageIcon,
   Question,
   ProblemUpload,
 } from "../assets";
+import { logoutUser } from "../apis/auth"; // 로그아웃 API 호출을 임포트
+import { useAuth } from "../context/AuthContext";
 
 // NavLinkWithIcon 컴포넌트 수정
-const NavLinkWithIcon = ({ icon, children, to }) => (
-  <NavLink to={to}>
+const NavLinkWithIcon = ({ icon, children, to, onClick }) => (
+  <NavLink to={to} onClick={onClick}>
     <Icon src={icon} alt="" />
     {children}
   </NavLink>
 );
 
 const Header = () => {
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      setIsLoggedIn(false);
+      navigate('/');
+      alert('로그아웃 성공')
+    } catch (error) {
+      console.error('Logout failed:', error)
+      alert('로그아웃에 실패했습니다.');
+    }
+  };
+
   return (
     <HeaderContainer>
       <Link to="/">
@@ -40,10 +57,16 @@ const Header = () => {
         </NavLinkWithIcon>
       </Nav>
       <Nav>
-        <NavLinkWithIcon to="/Login" icon={LogoutLogin}>
-          로그인
-        </NavLinkWithIcon>
-        <NavLinkWithIcon to="/Mypage" icon={MyPage}>
+        {isLoggedIn ? (
+          <NavLinkWithIcon to="/" icon={LogoutLogin} onClick={handleLogout}>
+            로그아웃
+          </NavLinkWithIcon>
+        ) : (
+          <NavLinkWithIcon to="/login" icon={LogoutLogin}>
+            로그인
+          </NavLinkWithIcon>
+        )}
+        <NavLinkWithIcon to="/mypage" icon={MyPageIcon}>
           마이페이지
         </NavLinkWithIcon>
       </Nav>
@@ -61,7 +84,7 @@ const HeaderContainer = styled.header`
   padding: 0 20px;
   background-color: #ffffff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- 
+  
 `;
 
 const Logo = styled.h1`
