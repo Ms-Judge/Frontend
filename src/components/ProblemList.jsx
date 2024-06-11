@@ -45,7 +45,7 @@ const ProblemList = () => {
   const navigate = useNavigate();
 
   let items = [];
-  for (let number = 1; number <= 5; number++) {
+  for (let number = 1; number <= 1; number++) {
     items.push(
       <Pagination.Item key={number} active={number === active} onClick={() => setActive(number)}>
         {number}
@@ -62,7 +62,7 @@ const ProblemList = () => {
   return (
     <ListWrapper>
       
-      <TitleName>대마고 알고리즘 경진대회(더미)</TitleName>
+      <TitleName>대마고 알고리즘 경진대회</TitleName>
       <StyledTable bordered hover>
         <thead>
           <tr>

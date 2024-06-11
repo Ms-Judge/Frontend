@@ -12,7 +12,7 @@ const QuestionList = () => {
   const navigate = useNavigate();
 
   let items = [];
-  for (let number = 1; number <= 5; number++) {
+  for (let number = 1; number <= 1; number++) {
     items.push(
       <Pagination.Item key={number} active={number === active} onClick={() => setActive(number)}>
         {number}
