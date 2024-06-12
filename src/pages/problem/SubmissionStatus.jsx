@@ -4,26 +4,46 @@ import { useNavigate } from "react-router-dom";
 import styled from "@emotion/styled";
 import Pagination from "react-bootstrap/Pagination";
 
-// SubmissionStatus 컴포넌트 정의
 const SubmissionStatus = () => {
-  const navigate = useNavigate(); // 페이지 이동을 위한 navigate 함수
-  const [currentPage, setCurrentPage] = useState(1); // 현재 페이지 상태
-  const submissionsPerPage = 7; // 페이지당 보여줄 제출 내역 수
-
-  // 제출 내역 상태 초기화 (20개의 가짜 데이터 생성)
+  const navigate = useNavigate();
+  const [currentPage, setCurrentPage] = useState(1);
+  const submissionsPerPage = 7;
+  const sortSubmissionsByTime = (submissions) => {
+    return submissions.sort((a, b) => {
+      const aTime = new Date(a.submissionTime).getTime();
+      const bTime = new Date(b.submissionTime).getTime();
+      return bTime - aTime;
+    });
+  };
   const [submissions, setSubmissions] = useState(
-    new Array(20).fill(null).map((_, index) => ({
-      problemNumber: String(index + 1).padStart(4, "0"), // 문제 번호 (0001, 0002, ...)
-      title: `A + B = ${index}`, // 문제 제목
-      language: "Python", // 사용 언어
-      submissionTime: "2024-05-27 10:00", // 제출 시간
-      status: index % 2 === 0 ? "맞았습니다." : "틀렸습니다.", // 제출 상태 (맞았습니다. 또는 틀렸습니다.)
-    }))
+    sortSubmissionsByTime(
+      new Array(50).fill(null).map((_, index) => ({
+        problemNumber: String(index + 1).padStart(4, "0"), // 문제 번호 (0001, 0002, ...)
+        title: `A + B = ${index}`, // 문제 제목
+        language: ["Python", "C / C++"][Math.floor(Math.random() * 2)], // 랜덤 언어 선택
+        submissionTime: `${2023 + Math.floor(Math.random() * 2)}-${
+          Math.floor(Math.random() * 12) + 1
+        }-${Math.floor(Math.random() * 28) + 1} ${Math.floor(
+          Math.random() * 24
+        )}:${Math.floor(Math.random() * 60)}`, // 랜덤 제출 시간
+        status: (() => {
+          const randomNumber = Math.random();
+          if (randomNumber < 0.25) {
+            return "맞았습니다.";
+          } else if (randomNumber < 0.5) {
+            return "틀렸습니다.";
+          } else if (randomNumber < 0.75) {
+            return "메모리 초과";
+          } else {
+            return "시간 초과";
+          }
+        })(),
+      }))
+    )
   );
-
   const totalPages = Math.ceil(submissions.length / submissionsPerPage); // 전체 페이지 수 계산
-
   const [currentSubmissions, setCurrentSubmissions] = useState([]); // 현재 페이지에 표시할 제출 내역 상태
+
   useEffect(() => {
     const indexOfLastSubmission = currentPage * submissionsPerPage; // 현재 페이지의 마지막 제출 내역 인덱스
     const indexOfFirstSubmission = indexOfLastSubmission - submissionsPerPage; // 현재 페이지의 첫 제출 내역 인덱스
@@ -35,7 +55,6 @@ const SubmissionStatus = () => {
   const handleNavigation = (path) => {
     navigate(path); // navigate 함수를 사용하여 페이지 이동
   };
-
   return (
     <>
       <Header />
@@ -58,7 +77,6 @@ const SubmissionStatus = () => {
             </NavItem>
           </NavRight>
         </NavigationBar>
-
         <SubmissionHeader>
           <SubmissionHeaderItem>문제 번호</SubmissionHeaderItem>
           <SubmissionHeaderItem>문제 이름</SubmissionHeaderItem>
@@ -66,7 +84,6 @@ const SubmissionStatus = () => {
           <SubmissionHeaderItem>제출 일시</SubmissionHeaderItem>
           <SubmissionHeaderItem>정답 여부</SubmissionHeaderItem>
         </SubmissionHeader>
-
         {currentSubmissions.map((submission, index) => (
           <SubmissionRow key={index} status={submission.status}>
             <SubmissionItem>{submission.problemNumber}</SubmissionItem>
@@ -78,9 +95,11 @@ const SubmissionStatus = () => {
             </SubmissionItem>
           </SubmissionRow>
         ))}
-
         <StyledPagination>
-          {Array.from({ length: totalPages }, (_, number) => (
+          {currentPage > 1 && (
+            <Pagination.Prev onClick={() => setCurrentPage(currentPage - 1)} />
+          )}
+          {Array.from({ length: Math.min(5, totalPages) }, (_, number) => (
             <Pagination.Item
               key={number + 1}
               active={number + 1 === currentPage}
@@ -89,6 +108,9 @@ const SubmissionStatus = () => {
               {number + 1}
             </Pagination.Item>
           ))}
+          {currentPage < totalPages && (
+            <Pagination.Next onClick={() => setCurrentPage(currentPage + 1)} />
+          )}
         </StyledPagination>
       </Container>
     </>
@@ -97,7 +119,6 @@ const SubmissionStatus = () => {
 
 export default SubmissionStatus;
 
-// 스타일 정의
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -136,9 +157,11 @@ const SubmissionRow = styled.div`
   border: 1px solid #000000;
   background-color: ${({ status }) =>
     status === "맞았습니다."
-      ? "#DAFEEF" // 맞았습니다. 상태일 때 배경색
-      : status === "틀렸습니다."
-      ? "#FEDADA" // 틀렸습니다. 상태일 때 배경색
+      ? "#DAFEEF"
+      : status === "틀렸습니다." ||
+        status === "메모리 초과" ||
+        status === "시간 초과"
+      ? "#FEDADA"
       : "white"};
   @media (min-width: 1000px) {
     width: 60%;
@@ -177,9 +200,11 @@ const SubmissionItem = styled(SubmissionHeaderItem)`
   padding: 0;
   color: ${({ status }) =>
     status === "맞았습니다."
-      ? "#00AA00" // 맞았습니다. 상태일 때 글자색
-      : status === "틀렸습니다."
-      ? "#FF0000" // 틀렸습니다. 상태일 때 글자색
+      ? "#00AA00"
+      : status === "틀렸습니다." ||
+        status === "메모리 초과" ||
+        status === "시간 초과"
+      ? "#FF0000"
       : "black"};
 `;
 

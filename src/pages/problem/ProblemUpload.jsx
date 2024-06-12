@@ -12,8 +12,8 @@ const ProblemUpload = () => {
   const [problem_content, setProblem_content] = useState(
     "‘A + B’를 계산한 뒤, 위 값을 분석한 결과를 출력하시오."
   );
-  const [problem_input, setProblem_input] = useState();
-  const [problem_output, setProblem_output] = useState();
+  const [problem_input, setProblem_input] = useState("");
+  const [problem_output, setProblem_output] = useState("");
 
   const [inputExample, setInputExample] = useState("1000 2000 ");
   const [outputExample, setOutputExample] = useState(
@@ -24,23 +24,48 @@ const ProblemUpload = () => {
     navigate(path);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const problemData = {
+      title,
+      time_limit,
+      memory_limit,
+      problem_content,
+      problem_input,
+      problem_output,
+      inputExample,
+      outputExample,
+    };
+    console.log(problemData);
+    // 여기서 서버로 데이터를 전송할 수 있습니다.
+  };
+
   return (
     <>
       <Header />
       <Container>
         <ProblemInfos>
-          <Title>문제 이름:
+          <Title>
+            문제 이름:
             <InfoInput
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
               placeholder="이름을 입력해주세요"
             />
           </Title>
-          <Limit>시간 제한:
+          <Limit>
+            시간 제한:
             <InfoInput
+              value={time_limit}
+              onChange={(e) => setTime_limit(e.target.value)}
               placeholder="시간제한을 입력해주세요"
             />
           </Limit>
-          <Limit>메모리 제한:
+          <Limit>
+            메모리 제한:
             <InfoInput
+              value={memory_limit}
+              onChange={(e) => setMemory_limit(e.target.value)}
               placeholder="메모리 제한을 입력해주세요"
             />
           </Limit>
@@ -49,18 +74,24 @@ const ProblemUpload = () => {
           <Section>
             <SectionTitle>문제</SectionTitle>
             <Description
+              value={problem_content}
+              onChange={(e) => setProblem_content(e.target.value)}
               placeholder="문제 내용을 입력해주세요"
             />
           </Section>
           <Section>
             <SectionTitle>입력</SectionTitle>
             <Description
+              value={problem_input}
+              onChange={(e) => setProblem_input(e.target.value)}
               placeholder="입력 조건을 입력해주세요"
             />
           </Section>
           <Section>
             <SectionTitle>출력</SectionTitle>
             <Description
+              value={problem_output}
+              onChange={(e) => setProblem_output(e.target.value)}
               placeholder="출력 조건을 입력해주세요"
             />
           </Section>
@@ -68,27 +99,33 @@ const ProblemUpload = () => {
             <Example>
               <ExampleTitle>예제 입력</ExampleTitle>
               <ExampleContent
+                value={inputExample}
+                onChange={(e) => setInputExample(e.target.value)}
                 placeholder="입력 예제를 입력해주세요"
               />
             </Example>
             <Example>
               <ExampleTitle>예제 출력</ExampleTitle>
               <ExampleContent
-                placeholder="출력 예제를 입력해주세요" 
+                value={outputExample}
+                onChange={(e) => setOutputExample(e.target.value)}
+                placeholder="출력 예제를 입력해주세요"
               />
             </Example>
           </ExampleSection>
-            <Example>
-              <ExampleTitle>정답 입력</ExampleTitle>
-              <ExampleContent
-                placeholder="정답를 입력해주세요" 
-              />
-            </Example>
-          
+          <Example>
+            <ExampleTitle>정답 입력</ExampleTitle>
+            <ExampleContent placeholder="정답를 입력해주세요" />
+          </Example>
         </DescriptionSection>
         <ButtonContainer>
-          <SubmitButton type="submit">제출하기</SubmitButton>
-          <BackButton type="button" onClick={() => handleNavigation("/Question")}>
+          <SubmitButton type="submit" onClick={handleSubmit}>
+            업로드하기
+          </SubmitButton>
+          <BackButton
+            type="button"
+            onClick={() => handleNavigation("/Question")}
+          >
             뒤로가기
           </BackButton>
         </ButtonContainer>
@@ -98,7 +135,6 @@ const ProblemUpload = () => {
 };
 
 export default ProblemUpload;
-
 const InfoInput = styled.input`
   margin-left: 20px;
   font-size: 20px;
@@ -111,7 +147,6 @@ const Container = styled.div`
   align-items: center;
   margin-top: 20px;
 `;
-
 
 const ProblemInfos = styled.div`
   display: flex;
@@ -128,12 +163,10 @@ const Title = styled.h1`
   margin-bottom: 5px;
 `;
 
-
 const Limit = styled.p`
   font-size: 16px;
   margin: 2px 0;
 `;
-
 
 const DescriptionSection = styled.div`
   width: 60%;
