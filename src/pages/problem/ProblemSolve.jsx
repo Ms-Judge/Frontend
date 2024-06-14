@@ -7,10 +7,10 @@ const ProblemSolve = () => {
   const [code, setCode] = useState("");
   const navigate = useNavigate();
 
-  const [title, setTitle] = useState("문제 이름");
-  const [problemNumber, setProblemNumber] = useState("9999");
-  const [timeLimit, setTimeLimit] = useState("시간 제한: 2초");
-  const [memoryLimit, setMemoryLimit] = useState("메모리 제한: 256MB");
+  const [title, setTitle] = useState("A + B = ?");
+  const [problemNumber, setProblemNumber] = useState("0001");
+  const [timeLimit, setTimeLimit] = useState("시간 제한: 1초");
+  const [memoryLimit, setMemoryLimit] = useState("메모리 제한: 128MB");
 
   const handleBack = () => {
     navigate(-1);
@@ -18,11 +18,12 @@ const ProblemSolve = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    alert("코드가 제출되었습니다.");
     console.log(code);
   };
 
   const handleNavigation = (path) => {
-    navigate(path);
+    navigate("/ProblemInfo/1");
   };
 
   return (
@@ -31,9 +32,9 @@ const ProblemSolve = () => {
       <Container>
         <NavigationBar>
           <NavLeft>
-            <NavItem onClick={() => handleNavigation("/ProblemInfo")}>문제 보기</NavItem>
+            <NavItem onClick={() => handleNavigation("/ProblemInfo/1")}>문제 보기</NavItem>
             <NavItem onClick={() => handleNavigation("/ProblemSolve")}>코드 제출</NavItem>
-            <NavItem onClick={() => handleNavigation("/submission-status")}>제출 현황</NavItem>
+            <NavItem onClick={() => handleNavigation("/SubmissionStatus")}>제출 현황</NavItem>
           </NavLeft>
           <NavRight>
             <NavItem onClick={() => handleNavigation("/Question")}>질문 게시판 가기</NavItem>
@@ -54,7 +55,7 @@ const ProblemSolve = () => {
           />
         </Form>
         <ButtonContainer>
-          <SubmitButton type="submit">제출하기</SubmitButton>
+          <SubmitButton type="submit" onClick={handleSubmit}>제출하기</SubmitButton>
           <BackButton type="button" onClick={handleBack}>
             뒤로가기
           </BackButton>

@@ -14,18 +14,23 @@ const ResponseQuestion = () => {
   const param = useParams();
   const [dataList, setDataList] = useState([]);
   const [resDataList, setResDataList] = useState([]);
-  const [answer, setAnswer] = useState({
-    title: "",
-    answer_Description: "",
-    question_id: "0",
-  })
+
+  const [title, setTitle] = useState("");
+  const [answer_Description, setAnswer_Description] = useState("");
+  const [question_id, setQuestion_id] = useState("");
 
 
   const handleSubmit = async (event) => {
+    const randomQuestionId = Math.floor(Math.random() * 90) + 10;
+    setQuestion_id(randomQuestionId.toString());
     event.preventDefault();
-    console.log("답변 업로드 시도:", answer);
+    console.log("답변 업로드 시도:", title, question_id);
     try {
-      await answerUpload(answer)
+      await answerUpload({
+        title,
+        answer_Description,
+        question_id: randomQuestionId
+      });
       alert("업로드 성공");
       navigate("/Question");
     } catch (error) {
@@ -113,10 +118,7 @@ const ResponseQuestion = () => {
             <Form.Control
               placeholder="제목을 입력해주세요"
               onChange={(e) =>
-                setAnswer((prevState) => ({
-                  ...prevState,
-                  title: e.target.value,
-                }))
+                setTitle(e.target.value)
               }
             />
           </InputGroup>
@@ -126,10 +128,7 @@ const ResponseQuestion = () => {
           <StyledFormControl
             placeholder="내용을 입력해주세요"
             onChange={(e) =>
-              setAnswer((prevState) => ({
-                ...prevState,
-                answer_Description: e.target.value,
-              }))
+              setAnswer_Description(e.target.value)
             }
           />
         </InputWrapper>

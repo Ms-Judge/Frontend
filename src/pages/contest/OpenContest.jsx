@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Header from "../../components/Header";
+import { useNavigate } from "react-router-dom";
 
 const OpenContest = () => {
   const [contestName, setContestName] = useState("");
@@ -8,6 +9,7 @@ const OpenContest = () => {
   const [endDate, setEndDate] = useState("");
   const [description, setDescription] = useState("");
   const [problems, setProblems] = useState([""]); 
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,6 +20,8 @@ const OpenContest = () => {
     console.log("설명:", description);
     console.log("알고리즘 문제:", problems);
     // 이후에는 상태를 초기화하거나 다른 페이지로 이동하는 로직을 추가할 수 있습니다.
+    alert("대회 개최를 성공했습니다.");
+    navigate(`/ContestList`);
   };
 
   const handleProblemChange = (index, value) => {

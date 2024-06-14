@@ -19,7 +19,7 @@ const SubmissionStatus = () => {
     sortSubmissionsByTime(
       new Array(50).fill(null).map((_, index) => ({
         problemNumber: String(index + 1).padStart(4, "0"), // 문제 번호 (0001, 0002, ...)
-        title: `A + B = ${index}`, // 문제 제목
+        title: `A + B = ?`, // 문제 제목
         language: ["Python", "C / C++"][Math.floor(Math.random() * 2)], // 랜덤 언어 선택
         submissionTime: `${2023 + Math.floor(Math.random() * 2)}-${
           Math.floor(Math.random() * 12) + 1
@@ -61,7 +61,7 @@ const SubmissionStatus = () => {
       <Container>
         <NavigationBar>
           <NavLeft>
-            <NavItem onClick={() => handleNavigation("/ProblemInfo")}>
+            <NavItem onClick={() => handleNavigation("/ProblemInfo/1")}>
               문제 보기
             </NavItem>
             <NavItem onClick={() => handleNavigation("/ProblemSolve")}>
